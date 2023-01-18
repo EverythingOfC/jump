@@ -17,5 +17,6 @@ public class HelloLombok {
         HelloLombok helloLombok = new HelloLombok("헬로",5);  // lombok에 의해 만들어진 생성자
         System.out.println(helloLombok.getHello());
         System.out.println(helloLombok.getLombox());
+
     }
 }

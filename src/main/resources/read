@@ -5,3 +5,5 @@ resources/templates : 템플릿 파일(자바 객체와 연동되는 HTML형태�
 resources/static : 프로젝트의 css, javascript, image파일이 위치한 공간
 
 application.properties : 프로젝트, 데이터베이스 등을 설정하는 코드가 위치한 공간
+
+자바에서는 필드명을 카멜 케이스로 적는것을 권장한다.
