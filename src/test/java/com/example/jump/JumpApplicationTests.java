@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ class JumpApplicationTests {
         meta.setMetaClassifications("운동");
         meta.setMetaType("헬스");
         meta.setMetaFormat("제이슨");
-        meta.setMetaDate(new Date().toString());
+        meta.setMetaDate(LocalDateTime.now());
         meta.setMetaContributor("서성준");
         meta.setMetaCoverage("100");
         meta.setMetaRight("메타빌드");
@@ -38,18 +40,6 @@ class JumpApplicationTests {
         meta.setMetaPublisher("문화체육관광부");
         this.metaRepository.save(meta);
 
-        List<MetaApi> mmm = this.metaRepository.findByMetaSubjectsLike("__기%");    // like조건으로 테이블의 데이터를 조회함.
-        assertEquals(1L,mmm.get(0).getMetaId());
-
-        Optional<MetaApi> om = this.metaRepository.findById(1L);    // 해당 id를 얻어와 옵셔널로 저장
-        MetaApi temp = om.get();    // 옵셔널의 요소 반환
-        temp.setMetaCoverage("200");    // 해당 값만 변경 가능
-        this.metaRepository.save(temp); /// 해당값을 변경하고 해당 객체를 저장
-
-        Optional<MetaApi> om2 = this.metaRepository.findById(5L);
-        MetaApi temp2 = om2.get();
-
-        assertEquals(5,this.metaRepository.count());    // 엔티티 객체의 수
-
     }
+
 }

@@ -10,16 +10,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 
 import javax.persistence.*;
-
+import java.time.LocalDateTime;
 
 
 @DynamicInsert  // 값이 null인 필드를 제외하고 insert함 (default값이 적용됨)
 @Getter
 @Setter
-@Entity // 데이터를 관리하는데 사용하는 ORM 클래스
+@Entity // 데이터를 관리하는데 사용하는 ORM 클래스 ( 서비스 -> 레포지토리 )
 public class MetaApi {
 
     @Id
@@ -42,8 +44,10 @@ public class MetaApi {
     private String metaPublisher;   // 발행기관(없다면 출처(연계시스템) 등록)
     @Column(columnDefinition = "TEXT",nullable = false)
     private String metaContributor; // 원작자
-    @Column(columnDefinition = "TEXT",nullable = false)
-    private String metaDate;  // 날짜
+
+    @LastModifiedDate   // 마지막에 수정된 값으로
+    @Column(name="metaDate")
+    private LocalDateTime metaDate;  // 날짜
     @Column(columnDefinition = "TEXT default 'ko' not null")
     private String metaLanguage;
     @Column(columnDefinition = "TEXT",nullable = false)

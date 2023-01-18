@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<!-- 타임리프 태그->  th:    !-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/meta.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="head">
+    <h2>디지털 집현전 목록</h2>
+</div>
+
+<table class="meta">
+    <thead>
+    <tr>
+        <th>분야</th>
+        <th>유형</th>
+        <th>제목</th>
+        <th>주제어</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meta : ${metaList}">   <!-- loop를 돌면서 model객체에 저장한 값을 뿌려줌 -->
+        <td><a th:href="@{  /jump/detail(metaId=${meta.metaId}) }" th:text="${meta.metaClassifications}"></a></td>
+        <td th:text="${meta.metaType}"></td>
+        <td th:text="${meta.metaTitle}"></td>
+        <td th:text="${meta.metaSubjects}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
