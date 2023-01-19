@@ -6,9 +6,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
-public class MetaDTO {  // DTO 객체 ( 레포지토리 -> 서비스 )
+public class MetaDTO {  // DTO 객체 ( 컨트롤러 <--> 서비스 )
 
     private Long metaId;    // ID
     private String metaClassifications; // 분야
@@ -25,5 +26,4 @@ public class MetaDTO {  // DTO 객체 ( 레포지토리 -> 서비스 )
     private String metaRelation;    // 관련자원
     private String metaCoverage;    // 내용범위
     private String metaRight;       // 이용조건
-
 }

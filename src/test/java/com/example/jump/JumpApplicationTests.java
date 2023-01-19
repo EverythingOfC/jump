@@ -2,6 +2,7 @@ package com.example.jump;
 
 import com.example.jump.domain.MetaApi;
 import com.example.jump.repository.MetaRepository;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,10 +27,10 @@ class JumpApplicationTests {
 
         MetaApi meta = new MetaApi();   // 새로운 객체를 생성한 것이므로, save()는 insert로 적용된다.
         meta.setMetaClassifications("운동");
-        meta.setMetaType("헬스");
+        meta.setMetaType("휘트니스");
         meta.setMetaFormat("제이슨");
         meta.setMetaDate(LocalDateTime.now());
-        meta.setMetaContributor("서성준");
+        meta.setMetaContributor("윤재욱");
         meta.setMetaCoverage("100");
         meta.setMetaRight("메타빌드");
         meta.setMetaRelation("자바");
@@ -39,7 +40,14 @@ class JumpApplicationTests {
         meta.setMetaIdentifier("식별자");
         meta.setMetaPublisher("문화체육관광부");
         this.metaRepository.save(meta);
-
     }
 
+    @Test
+    void parser(){
+        JSONObject jsonObject = new JSONObject();   // 연습
+
+        jsonObject.put("key1","value1");
+        jsonObject.put("key2","value2");
+
+    }
 }

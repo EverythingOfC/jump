@@ -13,9 +13,12 @@ a{
     color:black;
     text-decoration: none;
 }
+a:hover{
+    font-weight: bold;
+}
 .head{
     margin-top:1vw;
-    width:60%;
+    width:40%;
     border:3px solid black;
     border-radius: 30px;
     text-align: center;
@@ -23,23 +26,32 @@ a{
     padding:15px 0px;
     background-color: aquamarine;
 }
-.meta{
-    width:50%;
-    margin-top:3vw;
+.detail{
+    width:70%;
+    margin-top:2.5vw;
     text-align: center;
 }
 
-table, th, td{
+th, td{
     border:1px solid black;
-    border-collapse: separate;
+    padding:8px;
 }
 
-.meta th{
+.detail th{
+    width:20%;
     background-color:orange;
-    padding:9px;
-    font-size:1.2vw;
+    font-size:14px;
 }
-.meta td{
+.detail td{
+    width:80%;
+    font-size:12px;
     background-color:skyblue;
-    padding:6px;
+}
+.button{
+    text-align:center;
+    margin-top:0.2vw;
+}
+.button button{
+    padding: 5px 15px;
+    font-size:20px;
 }

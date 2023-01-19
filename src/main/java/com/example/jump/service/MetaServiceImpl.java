@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service    // 해당 클래스를 스프링의 서비스로 인식
@@ -16,5 +17,17 @@ public class MetaServiceImpl implements MetaService{
     public List<MetaApi> getList(){
         return this.metaRepository.findAll();
     }
+    public MetaApi getView(Long id){
+        Optional<MetaApi> ID = this.metaRepository.findById(id);
+        return ID.isPresent()?ID.get():null;        // 값이 있으면 수정
+    }
+    public void delete(Long id){
+        Optional<MetaApi> ID = this.metaRepository.findById(id);
+        if(ID.isPresent())  // 값이 있다면
+            this.metaRepository.delete(ID.get());   //  해당 객체 삭제
+    }
 
+    public void save(MetaApi meta){     // 해당 객체 저장
+        this.metaRepository.save(meta);
+    }
 }

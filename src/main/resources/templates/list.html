@@ -5,13 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{/meta.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/list.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 
+<div class="nav">
+    <a th:href="@{/jump/login}" th:text="로그아웃"></a> <!-- 로그인 화면으로 이동 -->
+</div>
 
 <div class="head">
-    <h2>디지털 집현전 목록</h2>
+    <h2>디지털집현전 목록</h2>
 </div>
 
 <table class="meta">
@@ -21,14 +24,17 @@
         <th>유형</th>
         <th>제목</th>
         <th>주제어</th>
+        <th colspan="2" style="color:red">관리자 기능</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="meta : ${metaList}">   <!-- loop를 돌면서 model객체에 저장한 값을 뿌려줌 -->
-        <td><a th:href="@{  /jump/detail(metaId=${meta.metaId}) }" th:text="${meta.metaClassifications}"></a></td>
+        <td th:text="${meta.metaClassifications}"></td>
         <td th:text="${meta.metaType}"></td>
         <td th:text="${meta.metaTitle}"></td>
         <td th:text="${meta.metaSubjects}"></td>
+        <td><a th:href="@{  /jump/detail(metaId=${meta.metaId}) }" th:text="상세보기"></a></td>
+        <td><a th:href="@{  /jump/delete(metaId=${meta.metaId}) }" th:text="삭제하기"></a></td>
     </tr>
     </tbody>
 </table>
