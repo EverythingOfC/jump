@@ -29,7 +29,7 @@ class JumpApplicationTests {
         meta.setMetaClassifications("운동");
         meta.setMetaType("휘트니스");
         meta.setMetaFormat("제이슨");
-        meta.setMetaDate(LocalDateTime.now());
+        meta.setMetaDate(LocalDate.now().toString());
         meta.setMetaContributor("윤재욱");
         meta.setMetaCoverage("100");
         meta.setMetaRight("메타빌드");
@@ -48,6 +48,7 @@ class JumpApplicationTests {
 
         jsonObject.put("key1","value1");
         jsonObject.put("key2","value2");
+
 
     }
 }

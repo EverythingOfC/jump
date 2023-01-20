@@ -7,14 +7,11 @@ package com.example.jump.domain;
 // H2데이터베이스: 개발용, 소규모 프로젝트에서 사용하는 경량 데이터베이스
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
@@ -48,7 +45,7 @@ public class MetaApi {
 
     @LastModifiedDate   // 마지막에 수정된 값으로
     @Column(name = "metaDate")
-    private LocalDateTime metaDate;  // 날짜
+    private String metaDate;  // 날짜
     @Column(columnDefinition = "TEXT default 'ko'")
     private String metaLanguage;
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -64,7 +61,7 @@ public class MetaApi {
 
     // @Transient: 엔티티의 속성으로 사용하고 싶지 않을 때 사용
 
-    public MetaApi(Long metaId, String metaClassifications, String metaType, String metaTitle, String metaSubjects, String metaDescription, String metaPublisher, String metaContributor, LocalDateTime metaDate, String metaLanguage, String metaIdentifier, String metaFormat, String metaRelation, String metaCoverage, String metaRight) {
+    public MetaApi(Long metaId, String metaClassifications, String metaType, String metaTitle, String metaSubjects, String metaDescription, String metaPublisher, String metaContributor, String metaDate, String metaLanguage, String metaIdentifier, String metaFormat, String metaRelation, String metaCoverage, String metaRight) {
         this.metaId = metaId;
         this.metaClassifications = metaClassifications;
         this.metaType = metaType;

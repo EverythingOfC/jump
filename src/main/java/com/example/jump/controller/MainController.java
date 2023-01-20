@@ -2,7 +2,6 @@ package com.example.jump.controller;
 
 import com.example.jump.domain.MetaApi;
 import com.example.jump.service.MetaService;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -62,12 +62,13 @@ public class MainController {
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-type", "application/json");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+            StringBuffer result = new StringBuffer();
+            String re = null;
+            while((re = br.readLine()) != null)
+                result.append(re);
 
-            String result = br.readLine();
-
-            JSONParser jsonParser = new JSONParser(result);   // String -> Object 변환
-            jsonObject = (JSONObject) jsonParser.parse();   // Object -> JsonObject로 변환
+            jsonObject = XML.toJSONObject(result.toString());
             jsonObject2 = jsonObject.getJSONObject("response");
             jsonObject3 = jsonObject2.getJSONObject("body");
             jsonArray = (JSONArray) jsonObject3.get("NewsItem");    // JsonObject -> JsonArray
@@ -75,30 +76,30 @@ public class MainController {
                 JSONObject item = (JSONObject) jsonArray.get(i);
                 int count = 0;    // 오류 없이 지날 때마다 count증가
                 try {
-                    title = "{" + quotes + "org" + quotes + ":" + quotes + item.get("법령명한글").toString() + quotes + "}";
-                    count++;
-                    String temp = !item.get("법령약칭명").equals("") ? "법령약칭명" : "법령명한글";    // 있으면 약칭명으로, 없으면 한글로
-                    subject = "{" + quotes + "org" + quotes + ":" + quotes + item.get(temp).toString() + quotes + "}";
-                    count++;
-                    description = "{" + quotes + "summary" + quotes + ":{" + quotes + "org" + quotes + ":" + quotes + item.get("법령명한글") + quotes + "}}";
-                    count++;
-                    publisher = "{" + quotes + "org" + quotes + ":" + quotes + item.get("소관부처명").toString() + quotes + "}";
-                    count++;
-                    contributors = "[{" + quotes + "org" + quotes + ":" + quotes + item.get("소관부처명") + quotes + "," + quotes + "role" + quotes + ":" + quotes + "author" + quotes + "}]";
-                    count++;
-                    date = "{" + quotes + "issued" + quotes + ":" + quotes + item.get("시행일자").toString() + quotes + "," + quotes + "created" + quotes + ":" + quotes + item.get("공포일자").toString() + quotes + "}";
-                    count++;
-                    language = "{" + quotes + "org" + quotes + ":" + quotes + "ko" + quotes + "}";
-                    count++;
-                    identifier = "{" + quotes + "site" + quotes + ":" + quotes + item.get("법령일련번호").toString() + quotes + "," + quotes + "url" + quotes + ":" + quotes + item.get("법령상세링크").toString() + quotes + "}";
-                    count++;
-                    format = "{" + quotes + "org" + quotes + ":" + quotes + quotes + "}";
-                    count++;
-                    relation = "{" + quotes + "isPartOF" + quotes + ":" + quotes + item.get("제개정구분명").toString() + quotes + "}";
-                    count++;
-                    coverage = "{" + quotes + "org" + quotes + ":" + quotes + quotes + "}";
-                    count++;
-                    right = "{" + quotes + "org" + quotes + ":" + quotes + quotes + "}";
+                    System.out.println(item);
+                    title = ("{"+quotes+"org"+quotes+":"+quotes+item.get("Title").toString()+quotes+"}"); count++;
+
+                    if(!item.get("SubTitle1").equals("")) {
+                        subject = (("[{"+quotes+"org"+quotes+":"+quotes+item.get("SubTitle1")+quotes+"}]"));
+                    }else if(!item.get("SubTitle2").equals("")) {
+                        subject = (("[{"+quotes+"org"+quotes+":"+quotes+item.get("SubTitle2")+quotes+"}]"));
+                    }else if(!item.get("SubTitle3").equals("")) {
+                        subject = (("[{"+quotes+"org"+quotes+":"+quotes+item.get("SubTitle3")+quotes+"}]"));
+                    }else {
+                        subject = (("[{"+quotes+"org"+quotes+":"+quotes+item.get("Title")+quotes+"}]"));
+                    }	count++;
+
+                    description = (("{"+quotes+"summary"+quotes+":{"+quotes+"org"+quotes+":"+quotes+item.get("DataContents")+quotes+"}")); count++;
+                    publisher = ("{"+quotes+"org"+quotes+":"+quotes+item.get("MinisterCode").toString()+quotes+"}"); count++;
+                    contributors = (("[{"+quotes+"org"+quotes+":"+quotes+item.get("MinisterCode")+quotes+","+quotes+"role"+quotes+":"+quotes+"author"+quotes+"}]")); count++;
+                    date = ("{"+quotes+"modified"+quotes+":"+quotes+item.get("ModifyDate").toString()+","+"available:"+item.get("ApproveDate").toString()+quotes+"}"); count++;
+                    language = ("{"+quotes+"org"+quotes+":"+quotes+"ko"+quotes+"}"); count++;
+                    identifier = ("{"+quotes+"site"+quotes+":"+quotes+item.get("NewsItemId").toString()+","+"view:"+item.get("OriginalUrl").toString()+quotes+"}"); count++;
+                    format = (("{"+quotes+"org"+quotes+":"+quotes+quotes+"}")); count++;
+                    relation = ("{"+quotes+"related"+quotes+":["+quotes+item.get("FileName").toString()+quotes+","+quotes+item.get("FileUrl").toString()+quotes+"]}"); count++;
+                    coverage= (("{"+quotes+"org"+quotes+":"+quotes+quotes+"}")); count++;
+                    right= (("{"+quotes+"org"+quotes+":"+quotes+quotes+"}"));
+
                 } catch (Exception e) {
                     model.addAttribute("error_name", "ERROR : 증분 데이터 ERROR~!!");
                     model.addAttribute("error_code", "CODE :  EF_R_001");
@@ -113,7 +114,7 @@ public class MainController {
                         (description.toString()),
                         (publisher.toString()),
                         (contributors.toString()),
-                        (LocalDateTime.parse(date, format1)),
+                        (date.toString()),   // LocalDate로 parsing 오류 해결
                         (language.toString()),
                         (identifier.toString()),
                         (format.toString()),
@@ -183,6 +184,12 @@ public class MainController {
         map.put("rawdata_coverage",pitches.get(18));
         map.put("rawdata_right",pitches.get(19));
 
+        for(Map.Entry<String, String> entry : map.entrySet()){  // rawdata1
+            String key = entry.getKey();    // 키를 얻어옴.
+            String value = entry.getValue();    // 값을 얻어옴.
+            model.addAttribute(key,value);
+        }
+
         map2.put("rawdata2_title",pitches.get(0));
         map2.put("rawdata2_subject1",pitches.get(1));
         map2.put("rawdata2_subject2",pitches.get(2));
@@ -204,26 +211,19 @@ public class MainController {
         map2.put("rawdata2_coverage",pitches.get(18));
         map2.put("rawdata2_right",pitches.get(19));
 
-        int i = 0;
-        for (String key : map.keySet()){	 // map의 key값을 모두 얻어와서 key값에 해당 값들을 순차적으로 저장
-            String value= String.valueOf(pitches.get(i));	// rawdata 칼럼의 값들을 모두 저장
-            if(!pitches.get(i++).equals(""))
-                map.put(key,value);	// rawdata의 칼럼 데이터들을 순차적으로 저장
+        for(Map.Entry<String, String> entry : map2.entrySet()){ // rawdata2
+            String key = entry.getKey();    // 키를 얻어옴.
+            String value = entry.getValue();    // 값을 얻어옴.
             model.addAttribute(key,value);
         }
 
-        i = 0;
-        for(String key2 : map2.keySet()){	// map2의 key값을 모두 얻어와서 key값에 해당 값들을 순차적으로 저장
-            model.addAttribute(key2,pitches.get(i++));
-        }
-
         Map<String,String> colon = new HashMap<>();
-        for(i=0;i<20;i++){	// 20번 반복해서 들어감
+        for(int i=0;i<20;i++){	// 20번 반복해서 들어감
             colon.put("rawdata_Colon"+i,"");
-            if(!pitches.get(i).equals("")){
+            if(!(pitches.get(i).equals(""))){
                 colon.put("rawdata_Colon"+i,":");
             }
-            model.addAttribute("rawdata_Colon"+i,colon.get(i));	// key: rawdata_Colon+ i,   value: "" or ":"
+            model.addAttribute("rawdata_Colon"+i,colon.get("rawdata_Colon"+i));	// key: rawdata_Colon+ i,   value: "" or ":"
         }
 
         model.addAttribute("mapping_1", "[ 매핑전 데이터 예시 ]");
