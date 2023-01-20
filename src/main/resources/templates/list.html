@@ -10,6 +10,7 @@
 <body>
 
 <div class="nav">
+    <a th:href="@{/}">API 입력</a>&emsp;<!-- 로그인 화면으로 이동 -->
     <a th:href="@{/jump/login}" th:text="로그아웃"></a> <!-- 로그인 화면으로 이동 -->
 </div>
 
@@ -20,11 +21,11 @@
 <table class="meta">
     <thead>
     <tr>
-        <th>분야</th>
-        <th>유형</th>
+        <th style="width:10%;">분야</th>
+        <th style="width:13%;">유형</th>
         <th>제목</th>
         <th>주제어</th>
-        <th colspan="2" style="color:red">관리자 기능</th>
+        <th colspan="2" style="color:red; width:10%;">관리자 기능</th>
     </tr>
     </thead>
     <tbody>

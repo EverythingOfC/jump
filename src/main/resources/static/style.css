@@ -3,11 +3,15 @@
 .navbar_logo{background-color:#000000;}
 .navname{color:white; font-size:20px;position: relative; left: 10px; top:-17px;  text-decoration: none;}
 html,body {
-
 	margin: 0;
-
 	padding: 0;
-
+}
+a{
+    color:black;
+    text-decoration: none;
+}
+a:hover{
+    font-weight: bold;
 }
 .input_content{
 	background-color: #f5f5f5;

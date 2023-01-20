@@ -31,8 +31,8 @@ a:hover{
     background-color: aquamarine;
 }
 .meta{
-    width:60%;
-    margin-top:3vw;
+    width:90%;
+    margin-top:2vw;
     text-align: center;
 }
 
@@ -43,10 +43,11 @@ table, th, td{
 
 .meta th{
     background-color:orange;
-    padding:9px;
-    font-size:1.2vw;
+    padding:6px 0px;
+    font-size:1vw;
 }
 .meta td{
     background-color:skyblue;
-    padding:6px;
+    padding:4px;
+    font-size:12px;
 }
