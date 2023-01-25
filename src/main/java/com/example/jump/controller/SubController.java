@@ -27,7 +27,7 @@ public class SubController {
 
     @GetMapping("/jump/delete")     // 삭제
     public String delete(Long metaId){
-        metaService.delete(metaId);
+        metaService.delete(metaId);     // 해당 id값으로 데이터를 삭제
         return "redirect:/jump/list";
     }
 

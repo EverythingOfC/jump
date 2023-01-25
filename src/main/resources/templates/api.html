@@ -6,7 +6,7 @@
     <title>Open-API</title>
     <script>
         function handleOnInput(el, maxlength) {
-            if(el.value.length > maxlength)  {
+            if (el.value.length > maxlength) {
                 el.value
                     = el.value.substr(0, maxlength);
             }
@@ -18,18 +18,18 @@
 <div class="header">
     <nav class="navbar">
         <div class="navbar_logo">
-            <img class="logo" src="/image/logo.png" >
+            <img class="logo" src="/image/logo.png">
             <a class="navname" href="">WE are ONe</a>
             <p><a style="float:right;margin-right:0.5vw;" th:href="@{/jump/list}">API 목록</a></p>
         </div>
     </nav>
 </div>
-<div class = "input_form">
+<div class="input_form">
     <h3>Mapping API(JAVA)</h3>
 
     <form method="GET" action="/jump/api">
 
-        <input type="radio" id="data" name="data_api"value="data" checked>
+        <input type="radio" id="data" name="data_api" value="data" checked>
         <label for="DATA">데이터 출력</label>
 
         <input type="radio" id="api" name="data_api" value="api">
@@ -42,13 +42,15 @@
             Service Key를 입력하십시오&nbsp&nbsp&nbsp&nbsp<input type="text" name="serviceKey" th:value="${serviceKey}"/>
         </div>
         <div class="input_content">
-            원하는 페이지를 입력하십시오 <input type="number" name="page"  th:value="${page}"/>
+            원하는 페이지를 입력하십시오 <input type="number" name="page" th:value="${page}"/>
         </div>
         <div class="input_content">
-            조회 시작 날짜를 입력하십시오 <input type="text" name="startdate" oninput='handleOnInput(this, 8)'min="2000-01-01" max="2022-12-31" th:value="${startdate}"/>
+            조회 시작 날짜를 입력하십시오 <input type="text" name="startdate" oninput='handleOnInput(this, 8)' min="2000-01-01"
+                                    max="2022-12-31" th:value="${startdate}"/>
         </div>
         <div class="input_content">
-            조회 종료 날짜를 입력하십시오 <input type="text" name="enddate" oninput='handleOnInput(this, 8)'min="2000-01-01" max="2022-12-31" th:value="${enddate}"/>
+            조회 종료 날짜를 입력하십시오 <input type="text" name="enddate" oninput='handleOnInput(this, 8)' min="2000-01-01"
+                                    max="2022-12-31" th:value="${enddate}"/>
         </div>
         <input class="input_submit" type="submit" value="실행"/>
     </form>
@@ -67,26 +69,67 @@
     <div class="raw_data">
         <h3 class="raw" th:text="${mapping_1}"></h3>
         <table>
-            <tr><td><p class="row1" th:text="${rawdata2_title}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon0}"></h3></td><td><p class="row2" th:text="${rawdata_title}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_subject1}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon1}"></h3></td><td><p class="row2" th:text="${rawdata_subject1}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_subject2}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon2}"></h3></td><td><p class="row2" th:text="${rawdata_subject2}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_subject3}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon3}"></h3></td><td><p class="row2" th:text="${rawdata_subject3}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_subject4}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon4}"></h3></td><td><p class="row2" th:text="${rawdata_subject4}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_description1}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon5}"></h3></td><td><p class="row2" th:text="${rawdata_description1}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_description2}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon6}"></h3></td><td><p class="row2" th:text="${rawdata_description2}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_publisher}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon7}"></h3></td><td><p class="row2" th:text="${rawdata_publisher}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_contributors1}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon8}"></h3></td><td><p class="row2" th:text="${rawdata_contributors1}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_contributors2}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon9}"></h3></td><td><p class="row2" th:text="${rawdata_contributors2}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_date1}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon10}"></h3></td><td><p class="row2" th:text="${rawdata_date1}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_date2}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon11}"></h3></td><td><p class="row2" th:text="${rawdata_date2}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_identifier1}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon12}"></h3></td><td><p class="row2" th:text="${rawdata_identifier1}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_identifier2}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon13}"></h3></td><td><p class="row2" th:text="${rawdata_identifier2}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_identifier3}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon14}"></h3></td><td><p class="row2" th:text="${rawdata_identifier3}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_format}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon15}"></h3></td><td><p class="row2" th:text="${rawdata_format}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_relation1}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon16}"></h3></td><td><p class="row2" th:text="${rawdata_relation1}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_relation2}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon17}"></h3></td><td><p class="row2" th:text="${rawdata_relation2}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_coverage}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon18}"></h3></td><td><p class="row2" th:text="${rawdata_coverage}"></p></td>
-            <tr><td><p class="row1" th:text="${rawdata2_right}"></p></td><td style="width:10px;"><h3 th:text="${rawdata_Colon19}"></h3></td><td><p class="row2" th:text="${rawdata_right}"></p></td></tr>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_title}"></p></td>
+                <td><p class="row2" th:text="${rawdata_title}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_subject1}"></p></td>
+                <td><p class="row2" th:text="${rawdata_subject1}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_subject2}"></p></td>
+                <td><p class="row2" th:text="${rawdata_subject2}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_subject3}"></p></td>
+                <td><p class="row2" th:text="${rawdata_subject3}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_subject4}"></p></td>
+                <td><p class="row2" th:text="${rawdata_subject4}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_description1}"></p></td>
+                <td><p class="row2" th:text="${rawdata_description1}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_description2}"></p></td>
+                <td><p class="row2" th:text="${rawdata_description2}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_publisher}"></p></td>
+                <td><p class="row2" th:text="${rawdata_publisher}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_contributors1}"></p></td>
+                <td><p class="row2" th:text="${rawdata_contributors1}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_contributors2}"></p></td>
+                <td><p class="row2" th:text="${rawdata_contributors2}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_date1}"></p></td>
+                <td><p class="row2" th:text="${rawdata_date1}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_date2}"></p></td>
+                <td><p class="row2" th:text="${rawdata_date2}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_identifier1}"></p></td>
+                <td><p class="row2" th:text="${rawdata_identifier1}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_identifier2}"></p></td>
+                <td><p class="row2" th:text="${rawdata_identifier2}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_identifier3}"></p></td>
+                <td><p class="row2" th:text="${rawdata_identifier3}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_format}"></p></td>
+                <td><p class="row2" th:text="${rawdata_format}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_relation1}"></p></td>
+                <td><p class="row2" th:text="${rawdata_relation1}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_relation2}"></p></td>
+                <td><p class="row2" th:text="${rawdata_relation2}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_coverage}"></p></td>
+                <td><p class="row2" th:text="${rawdata_coverage}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${rawdata2_right}"></p></td>
+                <td><p class="row2" th:text="${rawdata_right}"></p></td>
+            </tr>
         </table>
 
     </div>
@@ -95,18 +138,42 @@
     <div class="mapping_data">
         <h3 class="raw" th:text="${mapping_2}"></h3>
         <table>
-            <tr><td><p class="row1" th:text="${title2}"></p></td><td><p class="row2" th:text="${title}"></p></td>
-            <tr><td><p class="row1" th:text="${subject2}"></p></td><td><p class="row2" th:text="${subject}"></p></td>
-            <tr><td><p class="row1" th:text="${description2}"></p></td><td><p class="row2" th:text="${description}"></p></td>
-            <tr><td><p class="row1" th:text="${publisher2}"></p></td><td><p class="row2" th:text="${publisher}"></p></td>
-            <tr><td><p class="row1" th:text="${contributors2}"></p></td><td><p class="row2" th:text="${contributors}"></p></td>
-            <tr><td><p class="row1" th:text="${date2}"></p></td><td><p class="row2" th:text="${date}"></p></td>
-            <tr><td><p class="row1" th:text="${language2}"></p></td><td><p class="row2" th:text="${language}"></p></td>
-            <tr><td><p class="row1" th:text="${identifier2}"></p></td><td><p class="row2" th:text="${identifier}"></p></td>
-            <tr><td><p class="row1" th:text="${format2}"></p></td><td><p class="row2" th:text="${format}"></p></td>
-            <tr><td><p class="row1" th:text="${relation2}"></p></td><td><p class="row2" th:text="${relation}"></p></td>
-            <tr><td><p class="row1" th:text="${coverage2}"></p></td><td><p class="row2" th:text="${coverage}"></p></td>
-            <tr><td><p class="row1" th:text="${right2}"></p></td><td><p class="row2" th:text="${right}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${title2}"></p></td>
+                <td><p class="row2" th:text="${title}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${subject2}"></p></td>
+                <td><p class="row2" th:text="${subject}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${description2}"></p></td>
+                <td><p class="row2" th:text="${description}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${publisher2}"></p></td>
+                <td><p class="row2" th:text="${publisher}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${contributors2}"></p></td>
+                <td><p class="row2" th:text="${contributors}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${date2}"></p></td>
+                <td><p class="row2" th:text="${date}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${language2}"></p></td>
+                <td><p class="row2" th:text="${language}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${identifier2}"></p></td>
+                <td><p class="row2" th:text="${identifier}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${format2}"></p></td>
+                <td><p class="row2" th:text="${format}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${relation2}"></p></td>
+                <td><p class="row2" th:text="${relation}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${coverage2}"></p></td>
+                <td><p class="row2" th:text="${coverage}"></p></td>
+            <tr>
+                <td><p class="row1" th:text="${right2}"></p></td>
+                <td><p class="row2" th:text="${right}"></p></td>
             </tr>
         </table>
     </div>
