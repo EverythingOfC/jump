@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.json.*;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -82,9 +86,7 @@ public class MainController {
 
                 JSONObject item = (JSONObject) jArray.get(i);    // JsonArray의 i번째 객체를 얻어옴.
                 values.add(item);   // list에 JsonObject객체들을 하나씩 저장
-                
                 int count = 0;    // 오류 없이 지날 때마다 count가 증가함. ( 다음에 오류가 날 항목을 표시하기 위함 )
-
                 try {
                         // 받아온 데이터에 {와 "를 붙이기 위한 로직들
                     title = ("{" + quotes + "org" + quotes + ":" + quotes + item.get("Title").toString() + quotes + "}");
@@ -135,7 +137,10 @@ public class MainController {
                     count++;
                     right = (("{" + quotes + "org" + quotes + ":" + quotes + quotes + "}"));
 
-                } catch (Exception e) {     // 수집 실패한 항목들에 대한 처리
+                }catch(ParseException e){       // 날짜 파징 오류
+                    model.addAttribute("error_column", "날짜 파징에 실패하였습니다.");
+                }
+                catch (JSONException e) {     // 수집 실패한 항목들에 대한 처리
                     model.addAttribute("error_name", "ERROR : 증분 데이터 ERROR~!!");
                     model.addAttribute("error_code", "CODE :  EF_R_001");
                     model.addAttribute("error_column", "수집 실패한 데이터항목: " + menu[count]);
@@ -156,9 +161,11 @@ public class MainController {
                         (relation.toString()),
                         (coverage.toString()),
                         (right.toString()));
-                metaService.save(meta);
             }
-        } catch (Exception e) {
+        }catch (ConnectException e){
+            model.addAttribute("error_column", "연결시간이 초과되었습니다.");
+        }
+        catch (Exception e) {
             model.addAttribute("error_name", "ERROR : 데이터 수집 ERROR~!!");
             model.addAttribute("error_code", "CODE : EF_R_003");
             model.addAttribute("error_reason", "사유: 정확한 인증키를 입력해주시기 바랍니다.");
@@ -220,23 +227,7 @@ public class MainController {
             model.addAttribute(key, value);     // 속성 이름: key,  속성 값: value
         }
 
-
-
         model.addAttribute("mapping_2", "[ 매핑후 데이터 예시 ]");
-
-        // 매핑 후 데이터 항목들
-        model.addAttribute("title2", "title : ");
-        model.addAttribute("subject2", "subject : ");
-        model.addAttribute("description2", "description : ");
-        model.addAttribute("publisher2", "publisher : ");
-        model.addAttribute("contributors2", "contributors : ");
-        model.addAttribute("date2", "date : ");
-        model.addAttribute("language2", "language : ");
-        model.addAttribute("identifier2", "identifier :");
-        model.addAttribute("format2", "format : ");
-        model.addAttribute("relation2", "relation : ");
-        model.addAttribute("coverage2", "coverage : ");
-        model.addAttribute("right2", "right : ");
 
         // 매핑 후 데이터 값들
         model.addAttribute("title", title);

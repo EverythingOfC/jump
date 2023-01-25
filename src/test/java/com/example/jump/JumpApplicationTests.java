@@ -40,15 +40,7 @@ class JumpApplicationTests {
         meta.setMetaIdentifier("식별자");
         meta.setMetaPublisher("문화체육관광부");
         this.metaRepository.save(meta);
+        this.metaRepository.deleteAll();
     }
 
-    @Test
-    void parser(){
-        JSONObject jsonObject = new JSONObject();   // 연습
-
-        jsonObject.put("key1","value1");
-        jsonObject.put("key2","value2");
-
-
-    }
 }

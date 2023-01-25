@@ -29,12 +29,6 @@
 
     <form method="GET" action="/jump/api">
 
-        <input type="radio" id="data" name="data_api" value="data" checked>
-        <label for="DATA">데이터 출력</label>
-
-        <input type="radio" id="api" name="data_api" value="api">
-        <label for="API">API로 이동</label>
-
         <div class="input_content">
             원하는 데이터를 입력하십시오&nbsp<input type="text" name="category" th:value="${category}"/>
         </div>
@@ -139,40 +133,40 @@
         <h3 class="raw" th:text="${mapping_2}"></h3>
         <table>
             <tr>
-                <td><p class="row1" th:text="${title2}"></p></td>
+                <td><p class="row1">title </p></td>
                 <td><p class="row2" th:text="${title}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${subject2}"></p></td>
+                <td><p class="row1">subject2 </p></td>
                 <td><p class="row2" th:text="${subject}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${description2}"></p></td>
+                <td><p class="row1">description </p></td>
                 <td><p class="row2" th:text="${description}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${publisher2}"></p></td>
+                <td><p class="row1">publisher </p></td>
                 <td><p class="row2" th:text="${publisher}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${contributors2}"></p></td>
+                <td><p class="row1">contributors </p></td>
                 <td><p class="row2" th:text="${contributors}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${date2}"></p></td>
+                <td><p class="row1">date </p></td>
                 <td><p class="row2" th:text="${date}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${language2}"></p></td>
+                <td><p class="row1">language </p></td>
                 <td><p class="row2" th:text="${language}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${identifier2}"></p></td>
+                <td><p class="row1">identifier </p></td>
                 <td><p class="row2" th:text="${identifier}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${format2}"></p></td>
+                <td><p class="row1">format </p></td>
                 <td><p class="row2" th:text="${format}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${relation2}"></p></td>
+                <td><p class="row1">relation </p></td>
                 <td><p class="row2" th:text="${relation}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${coverage2}"></p></td>
+                <td><p class="row1">coverage </p></td>
                 <td><p class="row2" th:text="${coverage}"></p></td>
             <tr>
-                <td><p class="row1" th:text="${right2}"></p></td>
+                <td><p class="row1">right </p></td>
                 <td><p class="row2" th:text="${right}"></p></td>
             </tr>
         </table>
