@@ -30,7 +30,7 @@ class JumpApplicationTests {
         meta.setMetaType("휘트니스");
         meta.setMetaFormat("제이슨");
         meta.setMetaDate(LocalDate.now().toString());
-        meta.setMetaContributor("윤재욱");
+        meta.setMetaContributor("서성준");
         meta.setMetaCoverage("100");
         meta.setMetaRight("메타빌드");
         meta.setMetaRelation("자바");
@@ -40,7 +40,6 @@ class JumpApplicationTests {
         meta.setMetaIdentifier("식별자");
         meta.setMetaPublisher("문화체육관광부");
         this.metaRepository.save(meta);
-        this.metaRepository.deleteAll();
-    }
 
+    }
 }

@@ -9,13 +9,25 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
+/*
+    스프링 MVC구조
+
+	- 사용자 <--> Controller <--> Service <--> Repository <--> Domain
+
+    1.  사용자가 URL로 요청
+    2.  Controller가 GetMapping으로 요청을 받음. resources/templates에서 "api"라는 이름을 가진 html 파일을 찾음.
+    3.  Controller에서 Service 메소드를 호출 -> Service메소드에서 Repository 메소드를 호출 -> Domain 접근
+    4.  역순으로 와서 사용자에게 돌아옴.
+
+ */
 @RequiredArgsConstructor    // final이 붙은 속성을 초기화하는 생성자를 만들어줌.
 @Controller // 해당 클래스를 스프링의 컨트롤러로 인식
 public class SubController {
 
     private final MetaService metaService;  // 서비스 객체를 생성자 주입
 
-    @GetMapping({"/jump","/"})  // api페이지 요청
+    @GetMapping({"/jump","/"})  // api 페이지 요청
     public String jump() {
         return "api";
     }

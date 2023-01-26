@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.json.*;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +29,7 @@ public class MainController {
     public String api(@RequestParam(value = "serviceKey") String serviceKey,
                       @RequestParam(value = "startdate", defaultValue = "20211201") String startDate, @RequestParam(value = "enddate") String endDate, Model model) {
 
-        JSONArray jArray = new JSONArray();
+        JSONArray jArray = new JSONArray(); // Json객체 배열 생성
         char quotes = '"'; // 매핑시 ""안에 "을 넣기 위해 선언
 
         // column에 저장될 값
@@ -51,13 +49,15 @@ public class MainController {
         // column에 따른 오류 내용을 표시하기 위한 배열 ( 밑에 catch문 조건 참고 )
         String[] menu = {"Title", "Subject", "Description", "Publisher", "Contributors", "Date", "Language", "Identifier", "Format", "Relation", "Coverage", "right"};
 
-        // XML형식의 API데이터 항목들
+        // XML형식의 API데이터 항목들 ( 보도자료 원본의 key값 )
         String[] mappinglist = {"Title", "SubTitle1", "SubTitle2", "SubTitle3", "", "DataContents"  // 6개
                 , "", "MinisterCode", "", "", "ModifyDate", "ApproveDate"     // 6개
                 , "NewsItemId", "OriginalUrl", "", "", "FileName", "FileUrl", "", ""};    // 8개
 
-        // 칼럼들을 모아서 리스트로 저장함
+        // 보도자료 원본의 key 리스트
         List<String> pitches = new ArrayList<>(Arrays.asList(mappinglist));
+
+        // 보도자료 원본의 value 리스트
         List<JSONObject> values = new ArrayList<>();
         
         try {
@@ -70,22 +70,23 @@ public class MainController {
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-type", "application/json");
 
-            // url에서 불러온 데이터를 InputStreamReader -> BufferedReader -> readLine()로 받아옴.
+            // url에서 불러온 데이터를 InputStream -> InputStreamReader -> BufferedReader -> readLine()로 받아옴.
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
             StringBuffer result = new StringBuffer();
             String re = null;
-            while ((re = br.readLine()) != null)    // 받아올 값이 있으면 StringBuffer객체에 데이터 추가
-                result.append(re);
+            while ( (re = br.readLine() ) != null)    // 받아올 값이 있으면
+                result.append(re);  //  StringBuffer 객체에 데이터 추가
 
-            JSONObject jsonObject = XML.toJSONObject(result.toString());    // XML을 JSON으로 변환
+            JSONObject jsonObject = XML.toJSONObject(result.toString());    // StringBuffer -> String으로 형 변환 후 XML데이터를 Json객체로 생성
             JSONObject jsonObject2 = jsonObject.getJSONObject("response");  //  key값이 response인 jsonObject를 찾음
             JSONObject jsonObject3 = jsonObject2.getJSONObject("body"); //  key값이 body인 jsonObject를 찾음
             jArray = (JSONArray) jsonObject3.get("NewsItem");  //  key값이 NewsItem인 객체들을 JSON 배열로 만듬
 
             for (int i = 0; i < jArray.length(); i++) {  // key값이 NewsItem인 객체들의 갯수만큼 반복
 
-                JSONObject item = (JSONObject) jArray.get(i);    // JsonArray의 i번째 객체를 얻어옴.
-                values.add(item);   // list에 JsonObject객체들을 하나씩 저장
+                JSONObject item = (JSONObject) jArray.get(i);    // JsonArray의 i+1번째 객체를 얻어옴.
+                values.add(item);   // list에 JsonObject객체의 값을 하나씩 저장
+
                 int count = 0;    // 오류 없이 지날 때마다 count가 증가함. ( 다음에 오류가 날 항목을 표시하기 위함 )
                 try {
                         // 받아온 데이터에 {와 "를 붙이기 위한 로직들
@@ -111,17 +112,17 @@ public class MainController {
                     // 날짜 변환 로직
                     SimpleDateFormat dfFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");    // 파싱 전 형식
                     SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); // 파싱 후 형식
-                    String strDate = item.get("ModifyDate").toString();
-                    String strDate2 = item.get("ApproveDate").toString();
+                    String strDate = item.get("ModifyDate").toString(); // jsonObject의 get메소드로 ModifyDate를 String으로 변환
+                    String strDate2 = item.get("ApproveDate").toString(); // jsonObject의 get메소드로 ApproveDate을 String으로 변환
                     String dateTemp = null;
                     String dateTemp2 = null;
                     if(!strDate.equals("")){    // ModifyDate가 값이 있으면 날짜 변환
-                        Date formatDate = dfFormat.parse(strDate);
-                        dateTemp = newDtFormat.format(formatDate);
+                        Date formatDate = dfFormat.parse(strDate);  // 기존의 날짜 형식으로 Date객체 생성
+                        dateTemp = newDtFormat.format(formatDate);  // 기존의 날짜 형식을 새로운 날짜 형식으로 변환
                     }
                     if(!strDate2.equals("")){   // ApproveDate가 값이 있으면 날짜 변환
-                        Date formatDate2 = dfFormat.parse(strDate2);
-                        dateTemp2 = newDtFormat.format(formatDate2);
+                        Date formatDate2 = dfFormat.parse(strDate2);    // 기존의 날짜 형식으로 Date객체 생성
+                        dateTemp2 = newDtFormat.format(formatDate2);    // 기존의 날짜 형식을 새로운 날짜 형식으로 변환
                     }
                     count++;
                     date = ("{" + quotes + "modified" + quotes + ":" + quotes + dateTemp + "," + quotes + "available" + quotes + ":" + quotes + dateTemp2 + quotes + "}");
@@ -137,18 +138,18 @@ public class MainController {
                     count++;
                     right = (("{" + quotes + "org" + quotes + ":" + quotes + quotes + "}"));
 
-                }catch(ParseException e){       // 날짜 파징 오류
-                    model.addAttribute("error_column", "날짜 파징에 실패하였습니다.");
-                }
-                catch (JSONException e) {     // 수집 실패한 항목들에 대한 처리
-                    model.addAttribute("error_name", "ERROR : 증분 데이터 ERROR~!!");
-                    model.addAttribute("error_code", "CODE :  EF_R_001");
-                    model.addAttribute("error_column", "수집 실패한 데이터항목: " + menu[count]);
+                }catch(ParseException e){       // 날짜 파싱 오류
+                    model.addAttribute("error_column", "날짜 파싱에 실패하였습니다.");
                     return "api";
                 }
-
-                // Entity 객체 생성 후 데이터 저장 (DB에 저장)
-                MetaApi meta = new MetaApi(i + (long) 1, "", "",
+                catch (JSONException e) {       // 수집 실패한 항목들에 대한 처리
+                    model.addAttribute("error_name", "ERROR : 증분 데이터 ERROR~!!");
+                    model.addAttribute("error_code", "CODE :  EF_R_001");
+                    model.addAttribute("error_column", "수집 실패한 데이터 항목: " + menu[count]);
+                    return "api";
+                }
+                // Entity 객체 생성 후 데이터 저장(DB에 저장) ***** 저장 기능 구현 시 사용 예정 *****
+              /*  MetaApi meta = new MetaApi(i + (long) 1, "", "",
                         (title.toString()),
                         (subject.toString()),
                         (description.toString()),
@@ -161,9 +162,11 @@ public class MainController {
                         (relation.toString()),
                         (coverage.toString()),
                         (right.toString()));
+                */
             }
         }catch (ConnectException e){
             model.addAttribute("error_column", "연결시간이 초과되었습니다.");
+            return "api";
         }
         catch (Exception e) {
             model.addAttribute("error_name", "ERROR : 데이터 수집 ERROR~!!");
@@ -177,11 +180,11 @@ public class MainController {
 
         model.addAttribute("mapping_1", "[ 매핑전 데이터 예시 ]");
 
-        Map<String, String> map2 = new HashMap<>();
-        Map<String, Object> map = new HashMap<>();
+        Map<String, String> map2 = new HashMap<>(); // 매핑 전 칼럼 쌍
+        Map<String, Object> map = new HashMap<>();  // 매핑 후 칼럼 쌍
 
         // 매핑 전 칼럼 이름들
-        map2.put("rawdata2_title", pitches.get(0));
+        map2.put("rawdata2_title", pitches.get(0)); //  칼럼의 이름을 속성으로 저장
         map2.put("rawdata2_subject1", pitches.get(1));
         map2.put("rawdata2_subject2", pitches.get(2));
         map2.put("rawdata2_subject3", pitches.get(3));
@@ -208,7 +211,6 @@ public class MainController {
             model.addAttribute(key, value); // 속성 이름: key,  속성 값: value
         }
 
-
         String[] rawData = {"rawdata_title","rawdata_subject1","rawdata_subject2","rawdata_subject3","rawdata_subject4",
                 "rawdata_description1","rawdata_description2","rawdata_publisher","rawdata_contributors1","rawdata_contributors2",
                 "rawdata_date1","rawdata_date2","rawdata_identifier1","rawdata_identifier2","rawdata_identifier3","rawdata_format",
@@ -230,7 +232,7 @@ public class MainController {
         model.addAttribute("mapping_2", "[ 매핑후 데이터 예시 ]");
 
         // 매핑 후 데이터 값들
-        model.addAttribute("title", title);
+        model.addAttribute("title", title);     // 매핑된 이후에 저장된 값들을 속성으로 저장
         model.addAttribute("subject", subject);
         model.addAttribute("description", description);
         model.addAttribute("publisher", publisher);

@@ -4,7 +4,7 @@ package com.example.jump.domain;
 // JPA: ORM의 기술 표준으로 사용하는 인터페이스의 모임( 스프링부트에서 데이터베이스를 처리하기 위한 인터페이스)
 // JPA의 대표적인 구현클래스: 하이버네이트
 // Java Persistence API
-// H2데이터베이스: 개발용, 소규모 프로젝트에서 사용하는 경량 데이터베이스
+// H2 데이터베이스: 개발용, 소규모 프로젝트에서 사용하는 경량 데이터베이스
 
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -61,6 +61,7 @@ public class MetaApi {
 
     // @Transient: 엔티티의 속성으로 사용하고 싶지 않을 때 사용
 
+
     public MetaApi(Long metaId, String metaClassifications, String metaType, String metaTitle, String metaSubjects, String metaDescription, String metaPublisher, String metaContributor, String metaDate, String metaLanguage, String metaIdentifier, String metaFormat, String metaRelation, String metaCoverage, String metaRight) {
         this.metaId = metaId;
         this.metaClassifications = metaClassifications;
@@ -78,4 +79,5 @@ public class MetaApi {
         this.metaCoverage = metaCoverage;
         this.metaRight = metaRight;
     }
+
 }
