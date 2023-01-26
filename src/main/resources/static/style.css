@@ -41,8 +41,15 @@ a:hover {
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
-    margin-top: 10px;
-
+    margin-top: 20px;
+    margin-left:10px;
+    padding:5px 8px;
+    font-size:16px;
+    cursor:pointer;
+}
+.input_submit:hover{
+    font-weight: bold;
+    font-size:17px;
 }
 
 body {

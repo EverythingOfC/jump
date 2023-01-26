@@ -22,13 +22,12 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'   // 직접 관련이 있는 모듈들만 컴파일 함
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.6'  // jpa사용을 위한 implementation
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.6'  // jpa 사용을 위한 implementation
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 스프링부트의 템플릿 엔진
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'  // 날짜 포멧 지원
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.25'
-    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     compileOnly 'org.projectlombok:lombok'  // 해당 라이브러리가 컴파일 단계에서만 필요할 때
