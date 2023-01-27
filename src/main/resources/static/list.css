@@ -5,9 +5,27 @@
 img{
     padding:0;
 }
+.page{
+    margin-top:1vw;
+    text-align:center;
+}
+.page .page_info{
+    margin-top:1.5vw;
+}
+.page p{
+    margin-top:0.5vw;
+}
+.active{
+    font-weight:bold;
+    font-size:20px;
+}
+.disabled{
 
+}
 li{
     list-style-type: none;
+    display: inline-block;
+    padding:4px;
 }
 a{
     color:black;
@@ -35,7 +53,9 @@ a:hover{
     margin-top:2vw;
     text-align: center;
 }
-
+.meta a:hover{
+    color:red;
+}
 table, th, td{
     border:1px solid black;
     border-collapse: separate;
@@ -43,7 +63,7 @@ table, th, td{
 
 .meta th{
     background-color:orange;
-    padding:6px 0px;
+    padding:8px 0px;
     font-size:1vw;
 }
 .meta td{

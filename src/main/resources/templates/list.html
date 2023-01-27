@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-
-<!-- 타임리프 태그->  th:    !-->
+<!DOCTYPE html> <!-- 타임리프 태그->  th:    !-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/list.css}" type="text/css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 </head>
 <body>
 
 <div class="nav">
-    <a th:href="@{/}">API 출력</a>&emsp;<!-- 로그인 화면으로 이동 -->
+    <a th:href="@{/}">API 출력 및 저장</a>&emsp;<!-- 로그인 화면으로 이동 -->
     <a th:href="@{/jump/login}" th:text="로그아웃"></a> <!-- 로그인 화면으로 이동 -->
 </div>
 
@@ -25,20 +25,89 @@
         <th style="width:13%;">유형</th>
         <th>제목</th>
         <th>주제어</th>
-        <th colspan="2" style="color:red; width:10%;">관리자 기능</th>
+        <th><a th:href="@{ /jump/deleteAll}" style="width:5%;">삭제</a></th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="meta : ${metaList}">   <!-- loop를 돌면서 model객체에 저장한 값을 뿌려줌 -->
-        <td th:text="${meta.metaClassifications}"></td>
+    <tr th:each="meta, loop: ${paging}">   <!-- loop를 돌면서 model객체에 저장한 값을 뿌려줌 -->
+        <td><a th:href="@{  /jump/detail(metaId=${meta.metaId}) }" th:text="${meta.metaClassifications}"></a></td>
         <td th:text="${meta.metaType}"></td>
         <td th:text="${meta.metaTitle}"></td>
         <td th:text="${meta.metaSubjects}"></td>
-        <td><a th:href="@{  /jump/detail(metaId=${meta.metaId}) }" th:text="상세보기"></a></td>
-        <td><a th:href="@{  /jump/delete(metaId=${meta.metaId}) }" th:text="삭제하기"></a></td>
+        <td><input type="checkbox" name="delete" value="1" class="check"></td> <!-- 선택 삭제 -->
     </tr>
     </tbody>
 </table>
 
+<!-- 페이징 처리 시작 -->
+<div class="page" th:if="${!paging.isEmpty()}">
+    <ul>
+        <!-- 조건식이 참인 경우 class값을 class속성에 추가한다. -->
+        <li class="page-item">
+
+            <span th:switch="${(paging.number)-10 < 1}">
+            <a th:case="${true}"
+               th:href="@{|?listPage=1|}"> <!-- 처음으로 링크 이동 -->
+                <span>이전</span>
+            </a>
+            <a th:case="${false}"
+               th:href="@{|?listPage=${(paging.number)-10}|}"> <!-- 이전 페이지로 링크 이동 -->
+                <span>이전</span>
+            </a>
+            </span>
+
+        </li>
+
+        <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+            th:if="${page >= (paging.number)-4 and page <= paging.number+5}"
+            th:classappend="${page == paging.number+1} ? 'active'"
+            class="page-item">  <!-- 현재 페이지인 경우 활성화 -->
+
+            <a th:text="${page}" class="page-link" th:href="@{|?listPage=${page}|}"></a>
+        </li>
+
+        <li class="page-item"> <!-- 다음 페이지가 존재하지 않으면 클릭 불가-->
+
+            <span th:switch="${(paging.number)+10 > paging.totalPages}">
+            <a th:case="${true}"
+               th:href="@{|?listPage=${paging.totalPages}|}"> <!-- 끝 페이지로 링크 이동 -->
+                <span>다음</span>
+            </a>
+            <a th:case="${false}"
+               th:href="@{|?listPage=${(paging.number)+10}|}"> <!-- 다음 페이지로 링크 이동 -->
+                <span>다음</span>
+            </a>
+            </span>
+        </li>
+
+
+<div class="page_info">
+        <p th:text="|현재 페이지 번호: ${listPage}|"></p>
+        <p th:text="|전체 페이지 수: ${paging.totalPages}|"></p>
+</div>
+    </ul>
+</div>
+<!-- 페이징 처리 끝 -->
+<script>
+    $(document).ready(function() {  // 체크박스 shift선택이 가능하게 함.
+        var $chkboxes = $('.check');
+        var lastChecked = null;
+
+        $chkboxes.click(function(e) {
+            if (!lastChecked) {
+                lastChecked = this;
+                return;
+            }
+
+            if (e.shiftKey) {
+                var start = $chkboxes.index(this);
+                var end = $chkboxes.index(lastChecked);
+
+                $chkboxes.slice(Math.min(start,end), Math.max(start,end)+ 1).prop('checked', lastChecked.checked);
+            }
+            lastChecked = this;
+        });
+    });
+</script>
 </body>
 </html>

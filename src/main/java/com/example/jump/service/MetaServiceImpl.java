@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -25,8 +28,9 @@ public class MetaServiceImpl implements MetaService {
 
     private final MetaRepository metaRepository;    // 레퍼지토리 객체 생성
 
-    public List<MetaApi> getList() {   // 전체 조회
-        return this.metaRepository.findAll();
+    public Page<MetaApi> getList(int page) {   // 전체 조회
+        Pageable pageable = PageRequest.of(page,10);    //  조회할 페이지 번호와 한 페이지에 보여줄 데이터의 개수를 객체로 저장
+        return this.metaRepository.findAll(pageable);
     }
 
     public MetaApi getView(Long id) {  // 상세

@@ -25,6 +25,7 @@ class JumpApplicationTests {
     @Test
     void testJpa() {
 
+        for(int i=0;i<20;i++){
         MetaApi meta = new MetaApi();   // 새로운 객체를 생성한 것이므로, save()는 insert로 적용된다.
         meta.setMetaClassifications("운동");
         meta.setMetaType("휘트니스");
@@ -40,6 +41,7 @@ class JumpApplicationTests {
         meta.setMetaIdentifier("식별자");
         meta.setMetaPublisher("문화체육관광부");
         this.metaRepository.save(meta);
+        }
 
     }
 }

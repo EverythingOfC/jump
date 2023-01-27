@@ -2,6 +2,8 @@ package com.example.jump.repository;
 
 
 import com.example.jump.domain.MetaApi;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,4 +16,5 @@ public interface MetaRepository extends JpaRepository<MetaApi, Long> { // 엔티
     List<MetaApi> findByMetaSubjectsLike(String a);   // like로 데이터 조회
     MetaApi findByMetaSubjectsLikeOrderByMetaId(String a);  // 검색 결과를 MetaId순으로 정렬
 
+    Page<MetaApi> findAll(Pageable pageable);   // 페이징 처리
 }
