@@ -7,7 +7,10 @@
 .navbar_logo {
     background-color: #000000;
 }
-
+.navbar_logo a{
+    float:right;
+    margin-right:0.5vw;
+}
 .navname {
     color: white;
     font-size: 20px;

@@ -19,32 +19,36 @@
 </div>
 
 <table class="meta">
-    <thead>
-    <tr>
-        <th style="width:10%;">분야</th>
-        <th style="width:13%;">유형</th>
-        <th>제목</th>
-        <th>주제어</th>
-        <th><a th:href="@{ /jump/deleteAll}" style="width:5%;">삭제</a></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="meta, loop: ${paging}">   <!-- loop를 돌면서 model객체에 저장한 값을 뿌려줌 -->
-        <td><a th:href="@{  /jump/detail(metaId=${meta.metaId}) }" th:text="${meta.metaClassifications}"></a></td>
-        <td th:text="${meta.metaType}"></td>
-        <td th:text="${meta.metaTitle}"></td>
-        <td th:text="${meta.metaSubjects}"></td>
-        <td><input type="checkbox" name="delete" value="1" class="check"></td> <!-- 선택 삭제 -->
-    </tr>
-    </tbody>
+    <form action="/jump/delete">
+        <input type="hidden" name="listPage" th:value="${paging.number+1}">
+        <thead>
+        <tr>
+            <th style="width:10%;">분야</th>
+            <th style="width:13%;">유형</th>
+            <th>제목 <span style="font-size:11px;">※ 클릭 시 상세 보기 가능</span></th>
+            <th>주제어</th>
+            <th style="width:5%;"><input type="submit" value="삭제"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="meta, loop: ${paging}">   <!-- loop를 돌면서 model객체에 저장한 값을 뿌려줌 -->
+            <td th:text="${meta.metaClassifications}"></td>
+            <td th:text="${meta.metaType}"></td>
+            <td><a th:href="@{  /jump/detail(metaId=${meta.metaId},listPage=${paging.number+1}) }" th:text="${meta.metaTitle}"></a></td> <!-- 제목 클릭 시 상세보기 -->
+            <td th:text="${meta.metaSubjects}"></td>
+            <td><input type="checkbox" name="delete" th:value="${meta.metaId}" class="check"></td> <!-- 선택 삭제 -->
+        </tr>
+        </tbody>
+    </form>
 </table>
 
 <!-- 페이징 처리 시작 -->
-<div class="page" th:if="${!paging.isEmpty()}">
+<div class="page">
     <ul>
         <!-- 조건식이 참인 경우 class값을 class속성에 추가한다. -->
         <li class="page-item">
 
+            <a th:href="@{|?listPage=1|}" style="margin-right:1vw; font-weight:bold;"><span>처음</span></a>
             <span th:switch="${(paging.number)-10 < 1}">
             <a th:case="${true}"
                th:href="@{|?listPage=1|}"> <!-- 처음으로 링크 이동 -->
@@ -63,11 +67,13 @@
             th:classappend="${page == paging.number+1} ? 'active'"
             class="page-item">  <!-- 현재 페이지인 경우 활성화 -->
 
-            <a th:text="${page}" class="page-link" th:href="@{|?listPage=${page}|}"></a>
+            <!-- 전체 페이지 수가 0이 아닐때만 표시 -->
+            <a th:if="${paging.totalPages!=0}" th:text="${page}" class="page-link" th:href="@{|?listPage=${page}|}"></a>
         </li>
 
-        <li class="page-item"> <!-- 다음 페이지가 존재하지 않으면 클릭 불가-->
+        <li class="page-item">
 
+            <!-- 다음 페이지가 전체 페이지를 넘어가면 끝으로, 초과하지 않으면 그 다음 페이지로 이동-->
             <span th:switch="${(paging.number)+10 > paging.totalPages}">
             <a th:case="${true}"
                th:href="@{|?listPage=${paging.totalPages}|}"> <!-- 끝 페이지로 링크 이동 -->
@@ -78,16 +84,19 @@
                 <span>다음</span>
             </a>
             </span>
+            <a th:href="@{|?listPage=${paging.totalPages}|}" style="margin-left:1vw; font-weight:bold;"><span>끝</span></a>
         </li>
-
+    </ul>
 
 <div class="page_info">
-        <p th:text="|현재 페이지 번호: ${listPage}|"></p>
+        <p th:if="${paging.totalPages==0}" th:text="|현재 페이지 번호: 0|"></p> <!-- 0이면 1이아니라 0으로 표시 -->
+        <p th:unless="${paging.totalPages==0}" th:text="|현재 페이지 번호: ${listPage}|"></p> <!-- 0이 아니면 현재 페이지 번호 표시 -->
         <p th:text="|전체 페이지 수: ${paging.totalPages}|"></p>
 </div>
-    </ul>
+
 </div>
 <!-- 페이징 처리 끝 -->
+
 <script>
     $(document).ready(function() {  // 체크박스 shift선택이 가능하게 함.
         var $chkboxes = $('.check');

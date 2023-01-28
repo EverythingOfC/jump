@@ -22,36 +22,37 @@ a:hover{
     border:3px solid black;
     border-radius: 30px;
     text-align: center;
-    font-size:1.5vw;
-    padding:15px 0px;
+    font-size:1.2vw;
+    padding:12px 0px;
     background-color: aquamarine;
+}
+th, td{
+    border:1px solid black;
+    padding:8px;
 }
 .detail{
     width:70%;
     margin-top:2.5vw;
     text-align: center;
 }
-
-th, td{
-    border:1px solid black;
-    padding:8px;
-}
-
-.detail th{
+th{
     width:20%;
     background-color:orange;
     font-size:14px;
 }
-.detail td{
+td{
     width:80%;
     font-size:12px;
     background-color:skyblue;
 }
 .button{
     text-align:center;
-    margin-top:0.2vw;
+    margin-top:0.5vw;
+}
+.button a{
+    padding: 5px 20px;
+    font-size:20px;
 }
 .button button{
-    padding: 5px 15px;
-    font-size:20px;
+    padding:5px 0px;
 }

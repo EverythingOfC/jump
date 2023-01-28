@@ -42,37 +42,38 @@
         <td th:text="${metaView.metaContributor}"></td>
     </tr>
     <tr>
-    <th>날짜</th>
-    <td th:text="${metaView.metaDate}"></td>
+        <th>날짜</th>
+        <td th:text="${metaView.metaDate}"></td>
     </tr>
     <tr>
-    <th>언어</th>
-    <td th:text="${metaView.metaLanguage}"></td>
+        <th>언어</th>
+        <td th:text="${metaView.metaLanguage}"></td>
     </tr>
     <tr>
-    <th>식별자</th>
-    <td th:text="${metaView.metaIdentifier}"></td>
+        <th>식별자</th>
+        <td th:text="${metaView.metaIdentifier}"></td>
     </tr>
     <tr>
-    <th>형식</th>
-    <td th:text="${metaView.metaFormat}"></td>
+        <th>형식</th>
+        <td th:text="${metaView.metaFormat}"></td>
     </tr>
     <tr>
-    <th>관련자원</th>
-    <td th:text="${metaView.metaRelation}"></td>
+        <th>관련자원</th>
+        <td th:text="${metaView.metaRelation}"></td>
     </tr>
     <tr>
-    <th>내용범위</th>
-    <td th:text="${metaView.metaCoverage}"></td>
+        <th>내용범위</th>
+        <td th:text="${metaView.metaCoverage}"></td>
     </tr>
     <tr>
-    <th>이용조건</th>
-    <td th:text="${metaView.metaRight}"></td>
+        <th>이용조건</th>
+        <td th:text="${metaView.metaRight}"></td>
     </tr>
 </table>
 
 <div class="button">
-<button type="button"><a th:href="@{  /jump/list }" th:text="목록"></a></button>
+    <button type="button"><a th:href="@{  /jump/list(listPage=${listPage}) }" th:text="목록"></a></button>
+    <button type="button"><a th:href="@{  /jump/save(metaId=${metaView.metaId},listPage=${listPage})}" th:text="저장">/button>
 </div>
 </body>
 </html>

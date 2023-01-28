@@ -19,9 +19,7 @@ img{
     font-weight:bold;
     font-size:20px;
 }
-.disabled{
 
-}
 li{
     list-style-type: none;
     display: inline-block;
@@ -44,8 +42,8 @@ a:hover{
     border:3px solid black;
     border-radius: 30px;
     text-align: center;
-    font-size:1.5vw;
-    padding:15px 0px;
+    font-size:1.2vw;
+    padding:12px 0px;
     background-color: aquamarine;
 }
 .meta{
@@ -56,6 +54,14 @@ a:hover{
 .meta a:hover{
     color:red;
 }
+.meta input{
+    padding:5px 10px;
+    cursor:pointer;
+}
+.meta input[type="checkbox"]{
+    width:18px;
+    height:18px;
+}
 table, th, td{
     border:1px solid black;
     border-collapse: separate;
@@ -63,11 +69,11 @@ table, th, td{
 
 .meta th{
     background-color:orange;
-    padding:8px 0px;
+    padding:6px 0px;
     font-size:1vw;
 }
 .meta td{
     background-color:skyblue;
-    padding:4px;
+    padding:3px;
     font-size:12px;
 }
