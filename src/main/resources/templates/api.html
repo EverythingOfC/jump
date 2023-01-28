@@ -13,164 +13,187 @@
         }
     </script>
 </head>
-
 <body>
 <div class="header">
     <nav class="navbar">
         <div class="navbar_logo">
             <img class="logo" src="/image/logo.png">
-            <a class="navname" href="">WE are ONe</a>
-            <p><a th:href="@{/jump/list}">API 조회</a></p>
         </div>
     </nav>
 </div>
-<div class="input_form">
-    <h3>Mapping API(JAVA)</h3>
+<div id ="body_content">
 
-    <form method="GET" action="/jump/api">
-
-        <div class="input_content">
-            원하는 데이터를 입력하십시오&nbsp<input type="text" name="category" th:value="${category}"/>
+    <div class="data-set-title">
+        <div class="title-api">
+            <h2>오픈 API 상세</h2>
         </div>
-        <div class="input_content">
-            Service Key를 입력하십시오&nbsp&nbsp&nbsp&nbsp<input type="text" name="serviceKey" th:value="${serviceKey}"/>
+        <div class="title-area">
+            <p>문화체육관광부_정책브리핑_보도자료_API</p>
+            <a href="https://www.data.go.kr/data/15095295/openapi.do" target="_blank"><span class="original_site">원본 사이트</span></a>
         </div>
-        <div class="input_content">
-            원하는 페이지를 입력하십시오 <input type="number" name="page" th:value="${page}"/>
+        <div class="api-down">
+            <p><input type="button" value="API 조회" onclick="location.href='/jump/list'"/></p>
+            <p><input type="button" value="CSV 저장" onclick="location.href='/jump/save'"/></p>
         </div>
-        <div class="input_content">
-            조회 시작 날짜를 입력하십시오 <input type="text" name="startdate" oninput='handleOnInput(this, 8)' min="2000-01-01"
-                                    max="2022-12-31" th:value="${startDate}"/>
-        </div>
-        <div class="input_content">
-            조회 종료 날짜를 입력하십시오 <input type="text" name="enddate" oninput='handleOnInput(this, 8)' min="2000-01-01"
-                                    max="2022-12-31" th:value="${endDate}"/>
-        </div>
-        <input class="input_submit" type="submit" name="submit" value="print"/>
-        <input class="input_submit" type="submit" name="submit" value="save"/>
-    </form>
-    <p th:text="${error_name}"></p>
-    <p th:text="${error_code}"></p>
-    <p th:text="${error_reason}"></p>
-    <p th:text="${error_key}"></p>
-    <p th:text="${error_page}"></p>
-    <p th:text="${error_column}"></p>
-    <p th:text="${error_pagenum}"></p>
-</div>
-
-
-<div class="views">
-
-    <div class="raw_data">
-        <h3 class="raw" th:text="${mapping_1}"></h3>
-        <table>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_title}"></p></td>
-                <td><p class="row2" th:text="${rawdata_title}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_subject1}"></p></td>
-                <td><p class="row2" th:text="${rawdata_subject1}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_subject2}"></p></td>
-                <td><p class="row2" th:text="${rawdata_subject2}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_subject3}"></p></td>
-                <td><p class="row2" th:text="${rawdata_subject3}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_subject4}"></p></td>
-                <td><p class="row2" th:text="${rawdata_subject4}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_description1}"></p></td>
-                <td><p class="row2" th:text="${rawdata_description1}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_description2}"></p></td>
-                <td><p class="row2" th:text="${rawdata_description2}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_publisher}"></p></td>
-                <td><p class="row2" th:text="${rawdata_publisher}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_contributors1}"></p></td>
-                <td><p class="row2" th:text="${rawdata_contributors1}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_contributors2}"></p></td>
-                <td><p class="row2" th:text="${rawdata_contributors2}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_date1}"></p></td>
-                <td><p class="row2" th:text="${rawdata_date1}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_date2}"></p></td>
-                <td><p class="row2" th:text="${rawdata_date2}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_identifier1}"></p></td>
-                <td><p class="row2" th:text="${rawdata_identifier1}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_identifier2}"></p></td>
-                <td><p class="row2" th:text="${rawdata_identifier2}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_identifier3}"></p></td>
-                <td><p class="row2" th:text="${rawdata_identifier3}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_format}"></p></td>
-                <td><p class="row2" th:text="${rawdata_format}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_relation1}"></p></td>
-                <td><p class="row2" th:text="${rawdata_relation1}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_relation2}"></p></td>
-                <td><p class="row2" th:text="${rawdata_relation2}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_coverage}"></p></td>
-                <td><p class="row2" th:text="${rawdata_coverage}"></p></td>
-            <tr>
-                <td><p class="row1" th:text="${rawdata2_right}"></p></td>
-                <td><p class="row2" th:text="${rawdata_right}"></p></td>
-            </tr>
-        </table>
 
     </div>
+    <div class="api-info">
+        <div class="input_form">
+            <div class="mapping_api"><h3>Mapping API 정보</h3></div>
+            <form method="GET" action="/jump/api">
+                <table>
+                    <tr>
+                        <td>원하는 데이터를 입력하십시오</td>
+                        <td><input type="text" name="category" th:value="${category}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Service Key를 입력하십시오</td>
+                        <td><input type="text" name="serviceKey" th:value="${serviceKey}"/></td>
+                    </tr>
+                    <tr>
+                        <td>원하는 페이지를 입력하십시오</td>
+                        <td><input type="number" name="page" th:value="${page}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="dataset-table">조회 시작 날짜를 입력하십시오</td>
+                        <td><input class="input_data" type="text" name="startdate" oninput='handleOnInput(this, 8)' min="2000-01-01"
+                                   max="2022-12-31" th:value="${startdate}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="dataset-table">조회 종료 날짜를 입력하십시오</td>
+                        <td><input class="input_data" type="text" name="enddate" oninput='handleOnInput(this, 8)' min="2000-01-01"
+                                   max="2022-12-31" th:value="${enddate}"/></td>
+                    </tr>
+                </table>
+                <input class="input_submit" type="submit" value="조회하기"/>
+            </form>
+            <div class="error-ms">
+                <p th:text="${error_name}"></p>
+                <p th:text="${error_code}"></p>
+                <p th:text="${error_reason}"></p>
+                <p th:text="${error_key}"></p>
+                <p th:text="${error_page}"></p>
+                <p th:text="${error_column}"></p>
+                <p th:text="${error_pagenum}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mapping_data_content">
+
+        <div class="raw_data">
+            <h3 class="raw" th:text="${mapping_1}"></h3>
+            <table>
+                <caption>매핑 전 원본 DATA</caption>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_title}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_title}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_subject1}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_subject1}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_subject2}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_subject2}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_subject3}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_subject3}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_subject4}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_subject4}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_description1}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_description1}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_description2}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_description2}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_publisher}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_publisher}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_contributors1}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_contributors1}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_contributors2}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_contributors2}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_date1}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_date1}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_date2}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_date2}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_identifier1}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_identifier1}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_identifier2}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_identifier2}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_identifier3}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_identifier3}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_format}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_format}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_relation1}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_relation1}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_relation2}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_relation2}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_coverage}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_coverage}"></p></td>
+                <tr>
+                    <td class="row1"><p  th:text="${rawdata2_right}"></p></td>
+                    <td class="row2"><p th:text="${rawdata_right}"></p></td>
+                </tr>
+            </table>
+
+        </div>
 
 
-    <div class="mapping_data">
-        <h3 class="raw" th:text="${mapping_2}"></h3>
-        <table>
-            <tr>
-                <td><p class="row1">title </p></td>
-                <td><p class="row2" th:text="${Title}"></p></td>
-            <tr>
-                <td><p class="row1">subject </p></td>
-                <td><p class="row2" th:text="${Subject}"></p></td>
-            <tr>
-                <td><p class="row1">description </p></td>
-                <td><p class="row2" th:text="${Description}"></p></td>
-            <tr>
-                <td><p class="row1">publisher </p></td>
-                <td><p class="row2" th:text="${Publisher}"></p></td>
-            <tr>
-                <td><p class="row1">contributors </p></td>
-                <td><p class="row2" th:text="${Contributors}"></p></td>
-            <tr>
-                <td><p class="row1">date </p></td>
-                <td><p class="row2" th:text="${Date}"></p></td>
-            <tr>
-                <td><p class="row1">language </p></td>
-                <td><p class="row2" th:text="${Language}"></p></td>
-            <tr>
-                <td><p class="row1">identifier </p></td>
-                <td><p class="row2" th:text="${Identifier}"></p></td>
-            <tr>
-                <td><p class="row1">format </p></td>
-                <td><p class="row2" th:text="${Format}"></p></td>
-            <tr>
-                <td><p class="row1">relation </p></td>
-                <td><p class="row2" th:text="${Relation}"></p></td>
-            <tr>
-                <td><p class="row1">coverage </p></td>
-                <td><p class="row2" th:text="${Coverage}"></p></td>
-            <tr>
-                <td><p class="row1">right </p></td>
-                <td><p class="row2" th:text="${Right}"></p></td>
-            </tr>
-        </table>
+        <div class="mapping_data">
+            <h3 class="raw" th:text="${mapping_2}"></h3>
+            <table>
+                <caption>매핑 후 DATA</caption>
+                <tr>
+                    <td class="row1"><p>title </p></td>
+                    <td class="row2" ><p th:text="${title}"></p></td>
+                <tr>
+                    <td class="row1"><p>subject </p></td>
+                    <td class="row2" ><p th:text="${subject}"></p></td>
+                <tr>
+                    <td class="row1"><p>description </p></td>
+                    <td class="row2" ><p th:text="${description}"></p></td>
+                <tr>
+                    <td class="row1"><p>publisher </p></td>
+                    <td class="row2" ><p th:text="${publisher}"></p></td>
+                <tr>
+                    <td class="row1"><p>contributors </p></td>
+                    <td class="row2" ><p th:text="${contributors}"></p></td>
+                <tr>
+                    <td class="row1"><p>date </p></td>
+                    <td class="row2" ><p th:text="${date}"></p></td>
+                <tr>
+                    <td class="row1"><p>language </p></td>
+                    <td class="row2" ><p th:text="${language}"></p></td>
+                <tr>
+                    <td class="row1"><p>identifier </p></td>
+                    <td class="row2" ><p th:text="${identifier}"></p></td>
+                <tr>
+                    <td class="row1"><p>format </p></td>
+                    <td class="row2" ><p th:text="${format}"></p></td>
+                <tr>
+                    <td class="row1"><p>relation </p></td>
+                    <td class="row2" ><p th:text="${relation}"></p></td>
+                <tr>
+                    <td class="row1"><p>coverage </p></td>
+                    <td class="row2" ><p th:text="${coverage}"></p></td>
+                <tr>
+                    <td class="row1"><p>right </p></td>
+                    <td class="row2" ><p th:text="${right}"></p></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 </body>
