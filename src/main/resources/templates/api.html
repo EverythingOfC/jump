@@ -57,15 +57,15 @@
                     <tr>
                         <td class="dataset-table">조회 시작 날짜를 입력하십시오</td>
                         <td><input class="input_data" type="text" name="startdate" oninput='handleOnInput(this, 8)' min="2000-01-01"
-                                   max="2022-12-31" th:value="${startdate}"/></td>
+                                   max="2022-12-31" th:value="${startDate}"/></td>
                     </tr>
                     <tr>
                         <td class="dataset-table">조회 종료 날짜를 입력하십시오</td>
                         <td><input class="input_data" type="text" name="enddate" oninput='handleOnInput(this, 8)' min="2000-01-01"
-                                   max="2022-12-31" th:value="${enddate}"/></td>
+                                   max="2022-12-31" th:value="${endDate}"/></td>
                     </tr>
                 </table>
-                <input class="input_submit" type="submit" value="조회하기"/>
+                <input class="input_submit" name="submit" type="submit" value="조회하기"/>
             </form>
             <div class="error-ms">
                 <p th:text="${error_name}"></p>
@@ -157,40 +157,40 @@
                 <caption>매핑 후 DATA</caption>
                 <tr>
                     <td class="row1"><p>title </p></td>
-                    <td class="row2" ><p th:text="${title}"></p></td>
+                    <td class="row2" ><p th:text="${Title}"></p></td>
                 <tr>
                     <td class="row1"><p>subject </p></td>
-                    <td class="row2" ><p th:text="${subject}"></p></td>
+                    <td class="row2" ><p th:text="${Subject}"></p></td>
                 <tr>
                     <td class="row1"><p>description </p></td>
-                    <td class="row2" ><p th:text="${description}"></p></td>
+                    <td class="row2" ><p th:text="${Description}"></p></td>
                 <tr>
                     <td class="row1"><p>publisher </p></td>
-                    <td class="row2" ><p th:text="${publisher}"></p></td>
+                    <td class="row2" ><p th:text="${Publisher}"></p></td>
                 <tr>
                     <td class="row1"><p>contributors </p></td>
-                    <td class="row2" ><p th:text="${contributors}"></p></td>
+                    <td class="row2" ><p th:text="${Contributors}"></p></td>
                 <tr>
                     <td class="row1"><p>date </p></td>
-                    <td class="row2" ><p th:text="${date}"></p></td>
+                    <td class="row2" ><p th:text="${Date}"></p></td>
                 <tr>
                     <td class="row1"><p>language </p></td>
-                    <td class="row2" ><p th:text="${language}"></p></td>
+                    <td class="row2" ><p th:text="${Language}"></p></td>
                 <tr>
                     <td class="row1"><p>identifier </p></td>
-                    <td class="row2" ><p th:text="${identifier}"></p></td>
+                    <td class="row2" ><p th:text="${Identifier}"></p></td>
                 <tr>
                     <td class="row1"><p>format </p></td>
-                    <td class="row2" ><p th:text="${format}"></p></td>
+                    <td class="row2" ><p th:text="${Format}"></p></td>
                 <tr>
                     <td class="row1"><p>relation </p></td>
-                    <td class="row2" ><p th:text="${relation}"></p></td>
+                    <td class="row2" ><p th:text="${Relation}"></p></td>
                 <tr>
                     <td class="row1"><p>coverage </p></td>
-                    <td class="row2" ><p th:text="${coverage}"></p></td>
+                    <td class="row2" ><p th:text="${Coverage}"></p></td>
                 <tr>
                     <td class="row1"><p>right </p></td>
-                    <td class="row2" ><p th:text="${right}"></p></td>
+                    <td class="row2" ><p th:text="${Right}"></p></td>
                 </tr>
             </table>
         </div>

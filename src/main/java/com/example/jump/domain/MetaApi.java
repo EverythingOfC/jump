@@ -22,7 +22,6 @@ import javax.persistence.*;
 public class MetaApi {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long metaId;
     // strategy: 고유번호를 생성
     // GeneratedValue: 자동으로 값이 1씩 증가
@@ -46,7 +45,7 @@ public class MetaApi {
     @LastModifiedDate   // 마지막에 수정된 값으로
     @Column(name = "metaDate")
     private String metaDate;  // 날짜
-    @Column(columnDefinition = "TEXT default 'ko'")
+    @Column(columnDefinition = "TEXT")
     private String metaLanguage;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String metaIdentifier;  // 식별자

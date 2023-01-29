@@ -33,7 +33,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'  // 해당 라이브러리가 컴파일 단계에서만 필요할 때
     developmentOnly 'org.springframework.boot:spring-boot-devtools' // 클래스 변경 시, 서버를 자동으로 재 기동함.
     runtimeOnly 'com.mysql:mysql-connector-j'
-    runtimeOnly 'com.h2database:h2:'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'  // 컴파일 단계에서 어노테이션을 분석하고 처리할 때
 

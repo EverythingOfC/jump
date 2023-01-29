@@ -181,8 +181,6 @@ public class MetaServiceImpl implements MetaService {
                     model.addAttribute("error_code", "CODE :  EF_R_001");
                     model.addAttribute("error_column", "수집 실패한 데이터 항목: " + menu[count]);
                 }
-
-                if(submit.equals("save")){      // 사용자가 저장 버튼을 눌렀다면,
                     MetaApi meta = new MetaApi(i + (long) 1, "", "",    // 생성자를 통한 객체 초기화
                             (mappingValue[0]),
                             (mappingValue[1]),
@@ -197,7 +195,6 @@ public class MetaServiceImpl implements MetaService {
                             (mappingValue[10]),
                             (mappingValue[11]));
                     metaRepository.save(meta);  // Entity에 Meta데이터를 저장한다.
-                }
             }
         } catch (ConnectException e) {
             model.addAttribute("error_column", "연결시간이 초과되었습니다.");
@@ -269,7 +266,7 @@ public class MetaServiceImpl implements MetaService {
                 csvPrinter.printRecord(data);   // 실제 데이터 넣기
             }
             sw.flush();
-            csvFile = sw.toString().getBytes("MS949");
+            csvFile = sw.toString().getBytes("MS949");  // MS949로 인코딩한다.
 
             // csv파일 return
             HttpHeaders header = new HttpHeaders();
