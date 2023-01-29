@@ -29,9 +29,9 @@ public class SubController {
 
     private final MetaService metaService;  // 서비스 객체를 생성자 주입
 
-    @GetMapping({"/jump","/"})    // api 페이지 요청
-    public String jump() {
-        return "api";
+    @GetMapping({"index","/"})    // 검색 페이지
+    public String index(){
+        return "index";
     }
 
     @GetMapping("/jump/login")       // 로그인 페이지

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Detection</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<header class="header">
+    <nav>
+        <ul class="top_menu">
+            <li><button>로그인</button></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="img_box">
+        <img class="logo" src="logo.png" />
+    </div>
+
+    <div class="search">
+        <div class="input-bar">
+            <form action="/jump/search" method="get" id="searchForm">
+
+            <input type="text" placeholder="검색어를 입력해주세요" name="search_kw" autocomplete="off" id="keyword">
+            <button class="dictate">
+                <img class="btn_img" src="mic.png">
+                <!--            <a href="https://www.flaticon.com/kr/free-icons/" title="라디오 아이콘">라디오 아이콘  제작자: Kiranshastry - Flaticon</a>-->
+                <i class="ic-mike"></i>
+                <svg width="1.25rem" height="1.25rem" viewBox="0 0 100 100">
+                    <g stroke="#fff" stroke-width="15">
+                        <path d="M20,20 20,80">
+                            <animate attributeName="d" values="M20,40 20,60;M20,20 20,80;M20,40 20,60" dur="1s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M50,10 50,90">
+                            <animate attributeName="d" values="M50,10 50,90;M50,40 50,60;M50,10 50,90" dur="1s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M80,20 80,80">
+                            <animate attributeName="d" values="M80,40 80,60;M80,20 80,80;M80,40 80,60" dur="1s" repeatCount="indefinite" />
+                        </path>
+                    </g>
+                </svg>
+            </button>
+                <button class="dictate" id="search_btn" type="submit" ><img class="btn_img" src="search3.png"></button><!--추가 -->
+                <!--        출처<a href="https://www.flaticon.com/kr/free-icons/" title="검색 아이콘">검색 아이콘  제작자: Ilham Fitrotul Hayat - Flaticon</a>-->
+            </form>
+        </div>
+    </div>
+
+</main>
+<script src="speech.js"></script>
+<footer class ="footer">
+    <div class="foot">
+        <ul>
+            <li>이용약관</li>
+            <li>개인정보처리방침</li>
+            <br>
+            <li>주소 : (06567) 서울특별시 서초구 방배동 1808</li>
+        </ul>
+        <p>주소 : (06567) 서울특별시 서초구 방배동 1808</p>
+    </div>
+
+</footer>
+</body>
+</html>

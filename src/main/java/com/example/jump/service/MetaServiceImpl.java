@@ -1,6 +1,7 @@
 package com.example.jump.service;
 
 import com.example.jump.domain.MetaApi;
+import com.example.jump.domain.SearchApi;
 import com.example.jump.repository.MetaRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
@@ -29,14 +30,13 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 @RequiredArgsConstructor
 @Service    // 해당 클래스를 스프링의 서비스로 인식
-public class MetaServiceImpl implements MetaService {
+public class MetaServiceImpl implements MetaService {   // 메타 데이터 처리 서비스
 
-    private final MetaRepository metaRepository;    // 레퍼지토리 객체 생성
+    private final MetaRepository metaRepository;    // 메타 테이블에 접근하기 위한 객체
 
     public Page<MetaApi> getList(int page) {   // 전체 조회
 
@@ -47,7 +47,7 @@ public class MetaServiceImpl implements MetaService {
             this.metaRepository.findAll(pageable);
         }
         return this.metaRepository.findAll(pageable);
-    }
+    }    // 페이징 객체 받아옴.
 
     public MetaApi getView(Long id) {  // 상세
         Optional<MetaApi> ID = this.metaRepository.findById(id);
@@ -62,11 +62,11 @@ public class MetaServiceImpl implements MetaService {
             if (ID.isPresent())  // 값이 있다면
                 this.metaRepository.delete(ID.get());   //  해당 객체 삭제
         }
-    }
+    }   // 삭제
 
     public void save(MetaApi meta) {   // 수정
         this.metaRepository.save(meta);
-    }
+    }   // 저장
 
     public void getApi(String serviceKey, String startDate, String endDate,String submit, Model model){    // Api 출력만
 
@@ -241,9 +241,9 @@ public class MetaServiceImpl implements MetaService {
         model.addAttribute("serviceKey",serviceKey);
         model.addAttribute("startDate",startDate);
         model.addAttribute("endDate",endDate);
-    }
+    }   // api출력
 
-    public ResponseEntity<byte[]> saveCsv(){
+    public ResponseEntity<byte[]> saveCsv(){    // CSV로 저장
 
         List<MetaApi> meta = metaRepository.findAll(); // 전체 데이터를 받아옴.
         String[] menu = {"Title", "Subject", "Description", "Publisher", "Contributors", "Date",
@@ -287,5 +287,6 @@ public class MetaServiceImpl implements MetaService {
         }
 
         return null;    // 없으면 null
-    }
+    }   // CSV로 저장
+
 }
