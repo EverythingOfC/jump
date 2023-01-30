@@ -30,6 +30,8 @@
                 <select name="sup_category" class="select">
                     <option value="선택"> 선택</option>
                     <option value="보도자료">보도자료</option>
+                    <option value="정책뉴스">정책뉴스</option>
+                    <option value="포토">포토</option>
                     <option value="발의안">21대 발의안</option>
                 </select>
             </td>
@@ -73,9 +75,15 @@
         </tbody>
     </table>
     <div style="text-align: center">
-        <button class="reset_btn" type="reset">취소</button>
-        <button class="submit_btn" type="submit">등록</button>
+        <button class="reset_btn" type="button" onclick="history.go(-1);">목록으로</button>
+        <button class="reset_btn" type="reset">재전송</button>
+        <button class="submit_btn" type="submit" onclick="alert();">등록</button>
     </div>
 </form>
+<script>
+    function register(){
+        alert("문의가 완료되었습니다.");
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,101 @@
+[33mcommit a9cbe5b29ee5100e72060370b15061cdadf28655[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Mon Jan 30 17:09:57 2023 +0900
+
+    고객지원 테이블 및 문의하기 기능 추가
+
+[33mcommit c4e7b576f45175d33bdc12e658f56978fab3ec5d[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Mon Jan 30 11:20:59 2023 +0900
+
+    병합전 최종
+
+[33mcommit 1ed8f91f6a6bc0519019c56a51b3ff6007674d81[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Mon Jan 30 01:37:44 2023 +0900
+
+    검색 기능 추가 form위치 변경으로 인한 css수정 요함
+
+[33mcommit d9a3c80e5d4696bb70866d8c182899be7f0eee3c[m[33m ([m[1;31morigin/sj[m[33m, [m[1;32msj[m[33m)[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Sun Jan 29 15:07:18 2023 +0900
+
+    매핑 후 데이터 오류 수정
+
+[33mcommit 725ca61fcc5c6706eec5581a9918c90d2186bd90[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Sat Jan 28 21:13:27 2023 +0900
+
+    CSV파일 저장
+
+[33mcommit 2ea6e4abd8eef3a9ed25495466faae3c29a89da6[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Sat Jan 28 19:36:51 2023 +0900
+
+    페이징완성 및 정규표현식 처리
+
+[33mcommit fb3628573ba4782f70cc7954e1d609b4cc6fe77f[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Fri Jan 27 17:53:28 2023 +0900
+
+    페이징 처리 및 checkbox shift 일괄 선택/비선태 가능
+
+[33mcommit 03ee756fa38261d6353cf3e73dd192ae264ae65f[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Fri Jan 27 01:45:51 2023 +0900
+
+    API 저장 및 출력이 따로 가능 , for문을 통한 코드 요약
+
+[33mcommit aa1abf1d07f3632a80794f0af09df6dbe377a7c4[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Thu Jan 26 15:41:38 2023 +0900
+
+    주석 추가
+
+[33mcommit 45b96d8f0a09d7fe369722f6599bc6d051ee5dbb[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Wed Jan 25 14:33:41 2023 +0900
+
+    보도자료 api 수정
+
+[33mcommit 44073cd912dc6466be5c42f54342fe26fbceaa28[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Wed Jan 25 13:47:08 2023 +0900
+
+    보도자료 api 매핑 완료
+
+[33mcommit 5b0ab8205c082825b8ec1dcf2ffff6760d0b3a52[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Fri Jan 20 20:06:41 2023 +0900
+
+    링크추가 및 날짜형식 변경
+
+[33mcommit d4ac04a822b5dcc7c016ab3e2ae0119eb15027d1[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Fri Jan 20 17:26:05 2023 +0900
+
+    api매핑성공
+
+[33mcommit eb547c3eb2a3b9126710ff3b40c2135294bbd625[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Thu Jan 19 19:37:57 2023 +0900
+
+    api수정중
+
+[33mcommit e7d6d3e1383426d9645050966fe6ec39acd720b9[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Wed Jan 18 21:06:15 2023 +0900
+
+    서비스 getList()까지 구현
+
+[33mcommit 9fd11387c2c8c81e9d41192b288463fca33d7476[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Wed Jan 18 17:56:12 2023 +0900
+
+    JPA의 다양한 쿼리문 실행
+
+[33mcommit b08e66ba9cefaa8a31af675d96e11adc1f741770[m
+Author: 서성준 <tkflwk123@gmail.com>
+Date:   Mon Jan 16 17:58:57 2023 +0900
+
+    엔티티까지 생성
