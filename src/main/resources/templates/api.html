@@ -6,12 +6,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>문화체육관광부 정책브리핑 보도자료</title>
     <script>
-        function handleOnInput(el, maxlength) {
-            if (el.value.length > maxlength) {
-                el.value
-                    = el.value.substr(0, maxlength);
-            }
-        }
         //버튼 이름 바뀜
         $(function() {
             $('.toggleDiv').click( function() {
@@ -42,12 +36,12 @@
 </div>
 
 <div id ="body_content">
-    <div class="dataset-title" th:each="sear,loop:${search}">
+    <div class="dataset-title">
         <div class="title-api">
             <h2>오픈 API 상세</h2>
         </div>
 
-        <div class="title-area" th:if="${#strings.equals(sear.title, '문화체육관광부_정책브리핑_보도자료_API')}">
+        <div class="title-area" th:each="sear,loop:${search}" th:if="${#strings.equals(sear.title, '문화체육관광부_정책브리핑_보도자료_API')}">
             <p>문화체육관광부_정책브리핑_보도자료_API</p>
             <div class="api-down">
                 <button type="button" onclick="location.href='/jump/list'">API 조회</button>
@@ -120,7 +114,7 @@
             </div>
         </div>
 
-        <div class="title-area" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
+        <div class="title-area" th:each="sear,loop:${search}" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
 
             <p>국회의원 발의법률안</p>
             <div class="api-down">
@@ -186,7 +180,7 @@
             </div>
         </div>
 
-        <div class="title-area" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
+        <div class="title-area" th:each="sear,loop:${search}" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
             <p>국회의원 발의법률안</p>
             <div class="api-down">
                 <button type="button" onclick="location.href='/jump/list'">API 조회</button>
@@ -251,7 +245,7 @@
             </div>
         </div>
 
-        <div class="title-area" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
+        <div class="title-area" th:each="sear,loop:${search}" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
             <p>국회의원 발의법률안</p>
             <div class="api-down">
                 <button type="button" onclick="location.href='/jump/list'">API 조회</button>
@@ -316,7 +310,7 @@
             </div>
         </div>
 
-        <div class="title-area" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
+        <div class="title-area" th:each="sear,loop:${search}" th:if="${#strings.equals(sear.title, '국회의원 발의법률안')}">
             <p>국회의원 발의법률안</p>
             <div class="api-down">
                 <button type="button" onclick="location.href='/jump/list'">API 조회</button>
