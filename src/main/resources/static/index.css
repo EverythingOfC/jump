@@ -1,7 +1,13 @@
 html, body {
     height: 100%;
 }
-
+a{
+    text-decoration: none;
+    color:black;
+}
+a:hover{
+    font-weight:bold;
+}
 body {
     font-family: 'helvetica neue';
     font-weight: 200;
@@ -14,7 +20,6 @@ body {
     height: 8%;
     border-bottom: 1px solid #ccc;
     background-color: #2ab4ff;
-    /*border-radius: 5px;*/
     padding: 10px;
     box-shadow :0 6px 6px -6px rgba(0,0,0,.4);
     position: relative;
@@ -177,11 +182,9 @@ p {
     height: 14%;
     width: 100%;
     background-color: lightgray;
-    /*text-align: center;*/
 }
 .footer .foot {
 
-    /*padding: 50px;*/
     float: left;
     padding: 10px;
 }

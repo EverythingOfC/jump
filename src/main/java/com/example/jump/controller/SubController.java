@@ -29,7 +29,7 @@ public class SubController {
 
     private final MetaService metaService;  // 서비스 객체를 생성자 주입
 
-    @GetMapping({"index","/"})    // 검색 페이지
+    @GetMapping({"/index","/"})    // 검색 페이지
     public String index(){
         return "index";
     }
@@ -54,7 +54,7 @@ public class SubController {
         return "detail";
     }
 
-    @GetMapping("/jump/list")   // 전체보기                // 사용자가 url로 jump/list를 요청하면 list()를 실행하고, 해당 이름의 html파일 호출
+    @GetMapping("/jump/list")       // 전체보기                // 사용자가 url로 jump/list를 요청하면 list()를 실행하고, 해당 이름의 html파일 호출
     public String list(Model model, @RequestParam(value="listPage",defaultValue = "1") int page){                        // model클래스를 통해 데이터를 템플릿에 전달함.
         Page<MetaApi> meta = metaService.getList(page-1);   // Page객체는 실제 페이지를 0부터 계산
 
@@ -62,5 +62,6 @@ public class SubController {
         model.addAttribute("listPage",page);  // 현재 페이지 정보를 모델의 속성으로 저장
         return "list";                                    // resources/templates밑에 있는 list.html을 보여줌.
     }
+
 
 }

@@ -16,17 +16,12 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @DynamicInsert  // 값이 null인 필드를 제외하고 insert함 (default값이 적용됨)
+@Entity         // 데이터를 관리하는데 사용하는 ORM 클래스 ( 서비스 <--> 레퍼지토리 )
 @Getter
-@Setter
-@Entity // 데이터를 관리하는데 사용하는 ORM 클래스 ( 서비스 <--> 레퍼지토리 )
-public class MetaApi {
+public class MetaApi {  // 메타 데이터 테이블
 
     @Id
     private Long metaId;
-    // strategy: 고유번호를 생성
-    // GeneratedValue: 자동으로 값이 1씩 증가
-    // IDENTITY: 해당 칼럼만의 독립적인 시퀀스 생성
-
     @Column(columnDefinition = "TEXT")  // 글자 수를 제한할 수 없는 경우에 사용함
     private String metaClassifications; // 분야
     @Column(columnDefinition = "TEXT", nullable = false) // null이면 안 됨.

@@ -1,7 +1,7 @@
 package com.example.jump.controller;
 
+import com.example.jump.domain.ClientSupportApi;
 import com.example.jump.domain.SearchApi;
-import com.example.jump.service.MetaSearch;
 import com.example.jump.service.MetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,6 @@ public class MainController {   // api출력 및 저장하는 핵심 로직
 
     @Autowired  // 자동으로 의존 객체를 찾아서 주입함
     private MetaService metaService;
-
-    @Autowired  // 자동으로 의존 객체를 찾아서 주입함
-    private MetaSearch metaSearch;
 
     @GetMapping("/jump/api")    // Api 저장 또는 출력
     public String api(@RequestParam(value = "serviceKey") String serviceKey,
@@ -41,15 +38,31 @@ public class MainController {   // api출력 및 저장하는 핵심 로직
         return metaService.saveCsv();
     }
 
-    @GetMapping("/jump/search") // 검색 시 이동
+    @GetMapping("/jump/search") // 검색
     public String search(@RequestParam(value="search_kw",defaultValue = "")String search,Model model){
 
-        List<SearchApi> searchApis = this.metaSearch.searchApi(search);
+        List<SearchApi> searchApis = this.metaService.searchApi(search);
 
         model.addAttribute("search",searchApis);    // 검색 리스트를 세션으로 저장
 
         return "api";
     }
 
+    @GetMapping("/jump/support")        // 고객지원 폼
+    public String support(){
+        return "support";
+    }
 
+
+    @GetMapping("/jump/supportHandle")  // 고객지원 처리
+    public String supportHandle(@RequestParam(value="sup_category")String category,
+                                @RequestParam(value="sup_title")String title,
+                                @RequestParam(value="sup_name",defaultValue = "")String name,
+                                @RequestParam(value="sup_content")String content,
+                                @RequestParam(value="sup_email")String email,Model model){
+
+        ClientSupportApi api = this.metaService.supportSave(category, title, name, content, email);    // 고객지원 데이터 저장
+
+        return "redirect:/jump/search";  // api목록으로 이동
+    }
 }

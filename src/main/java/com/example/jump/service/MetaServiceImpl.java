@@ -1,8 +1,11 @@
 package com.example.jump.service;
 
+import com.example.jump.domain.ClientSupportApi;
 import com.example.jump.domain.MetaApi;
 import com.example.jump.domain.SearchApi;
-import com.example.jump.repository.MetaRepository;
+import com.example.jump.repository.ClientSupportApiRepository;
+import com.example.jump.repository.MetaApiRepository;
+import com.example.jump.repository.SearchApiRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -34,9 +37,11 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @Service    // 해당 클래스를 스프링의 서비스로 인식
-public class MetaServiceImpl implements MetaService {   // 메타 데이터 처리 서비스
+public class MetaServiceImpl implements MetaService {       // 메타 데이터 처리 서비스
 
-    private final MetaRepository metaRepository;    // 메타 테이블에 접근하기 위한 객체
+    private final MetaApiRepository metaApiRepository;      // 메타 테이블에 접근하기 위한 객체
+    private final SearchApiRepository searchApiRepository;  // 검색 테이블에 접근하기 위한 객체
+    private final ClientSupportApiRepository clientSupportApiRepository;    // 고객지원 테이블에 접근하기 위한 객체
 
     public Page<MetaApi> getList(int page) {   // 전체 조회
 
@@ -44,31 +49,36 @@ public class MetaServiceImpl implements MetaService {   // 메타 데이터 처�
         try {
             pageable = PageRequest.of(page,10);
         } catch (IllegalArgumentException e) {      // api 리스트가 비어있을 시에, 이전, 다음 버튼을 누르면 오류가 나므로 예외처리
-            this.metaRepository.findAll(pageable);
+            this.metaApiRepository.findAll(pageable);
         }
-        return this.metaRepository.findAll(pageable);
-    }    // 페이징 객체 받아옴.
+        return this.metaApiRepository.findAll(pageable);
+    }    // 전체 api 조회
 
     public MetaApi getView(Long id) {  // 상세
-        Optional<MetaApi> ID = this.metaRepository.findById(id);
+        Optional<MetaApi> ID = this.metaApiRepository.findById(id);
         return ID.isPresent() ? ID.get() : null;       // id에 해당하는 데이터가 있으면 불러옴
-    }
+    }           // 상세
 
     public void delete(Long[] id) {      // 삭제
         int length = id.length;
 
         for(int i=0;i<length;i++){      // 삭제할 id값들을 반복함.
-            Optional<MetaApi> ID = this.metaRepository.findById(id[i]);
+            Optional<MetaApi> ID = this.metaApiRepository.findById(id[i]);
             if (ID.isPresent())  // 값이 있다면
-                this.metaRepository.delete(ID.get());   //  해당 객체 삭제
+                this.metaApiRepository.delete(ID.get());   //  해당 객체 삭제
         }
-    }   // 삭제
+    }             // 삭제
 
     public void save(MetaApi meta) {   // 수정
-        this.metaRepository.save(meta);
+        this.metaApiRepository.save(meta);
     }   // 저장
 
-    public void getApi(String serviceKey, String startDate, String endDate,String submit, Model model){    // Api 출력만
+    public List<SearchApi> searchApi(String title){     // 지정된 title로 검색
+
+        return this.searchApiRepository.findByTitleContaining(title);   // 검색된 목록들을 반환
+    }   // 검색
+
+    public void getApi(String serviceKey, String startDate, String endDate,String submit, Model model){
 
         JSONArray jArray = null;    // Json배열형 변수 선언
 
@@ -194,7 +204,7 @@ public class MetaServiceImpl implements MetaService {   // 메타 데이터 처�
                             (mappingValue[9]),
                             (mappingValue[10]),
                             (mappingValue[11]));
-                    metaRepository.save(meta);  // Entity에 Meta데이터를 저장한다.
+                    metaApiRepository.save(meta);  // Entity에 Meta데이터를 저장한다.
             }
         } catch (ConnectException e) {
             model.addAttribute("error_column", "연결시간이 초과되었습니다.");
@@ -241,11 +251,11 @@ public class MetaServiceImpl implements MetaService {   // 메타 데이터 처�
         model.addAttribute("serviceKey",serviceKey);
         model.addAttribute("startDate",startDate);
         model.addAttribute("endDate",endDate);
-    }   // api출력
+    }     // 해당 api 조회
 
     public ResponseEntity<byte[]> saveCsv(){    // CSV로 저장
 
-        List<MetaApi> meta = metaRepository.findAll(); // 전체 데이터를 받아옴.
+        List<MetaApi> meta = metaApiRepository.findAll(); // 전체 데이터를 받아옴.
         String[] menu = {"Title", "Subject", "Description", "Publisher", "Contributors", "Date",
                 "Language", "Identifier", "Format", "Relation", "Coverage", "Right"};   // CSV의 Header로 사용할 column들
 
@@ -287,6 +297,13 @@ public class MetaServiceImpl implements MetaService {   // 메타 데이터 처�
         }
 
         return null;    // 없으면 null
-    }   // CSV로 저장
+    }          // CSV로 저장
 
+    public ClientSupportApi supportSave(String category,String title,String name,String content,String method){     // 고객지원 저장
+
+        ClientSupportApi api = new ClientSupportApi(category, title, name, content, method);         // 엔티티 객체 초기화
+        this.clientSupportApiRepository.save(api);
+
+        return api;
+    }    // 고객지원 저장
 }

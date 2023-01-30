@@ -2,16 +2,12 @@ package com.example.jump.repository;
 
 
 import com.example.jump.domain.MetaApi;
-import com.example.jump.domain.SearchApi;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
 
-
-public interface MetaRepository extends JpaRepository<MetaApi, Long> { // 엔티티와 엔티티의 pk를 적어줌.
+public interface MetaApiRepository extends JpaRepository<MetaApi, Long> {   // 메타 테이블에 접근하기 위한 레퍼지토리
 
     Page<MetaApi> findAll(Pageable pageable);   // 페이징 처리
 }
