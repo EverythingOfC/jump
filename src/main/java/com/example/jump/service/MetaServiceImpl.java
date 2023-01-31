@@ -253,9 +253,9 @@ public class MetaServiceImpl implements MetaService {       // 메타 데이터 
         model.addAttribute("endDate",endDate);
     }     // 해당 api 조회
 
-    public ResponseEntity<byte[]> saveCsv(){    // CSV로 저장
+    public ResponseEntity<byte[]> saveCsv(String type){    // CSV로 저장
 
-        List<MetaApi> meta = metaApiRepository.findAll(); // 전체 데이터를 받아옴.
+        List<MetaApi> meta = metaApiRepository.findAllByMetaType(type);     // 해당 type의 데이터를 받아옴.
         String[] menu = {"Title", "Subject", "Description", "Publisher", "Contributors", "Date",
                 "Language", "Identifier", "Format", "Relation", "Coverage", "Right"};   // CSV의 Header로 사용할 column들
 
@@ -276,13 +276,16 @@ public class MetaServiceImpl implements MetaService {       // 메타 데이터 
                 csvPrinter.printRecord(data);   // 실제 데이터 넣기
             }
             sw.flush();
-            csvFile = sw.toString().getBytes("MS949");  // MS949로 인코딩한다.
+            csvFile = sw.toString().getBytes("ms949");  // ms949로 받아옴.
 
             // csv파일 return
             HttpHeaders header = new HttpHeaders();
-            header.add("Content-Type", "text/csv;charset=MS949");   // 인코딩 방식 지정
+            header.add("Content-Type", "text/csv;charset=ms949");    // 파일내용 한글 처리
             header.setContentType(MediaType.valueOf("plain/text"));
-            header.set(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=meta.csv");
+
+            type = new String(type.getBytes("utf-8"),"ISO-8859-1"); // 파일명 한글 처리
+
+            header.set(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename="+type+".csv");
             header.setContentLength(csvFile.length);
 
             return new ResponseEntity<byte[]>(csvFile, header, HttpStatus.OK);  // HttpRequest에 대한 응답 데이터를 포함함.

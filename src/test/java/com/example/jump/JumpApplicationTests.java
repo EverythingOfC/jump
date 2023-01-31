@@ -43,18 +43,16 @@ class JumpApplicationTests {
                 , "", "MinisterCode", "", "", "ModifyDate", "ApproveDate"                          // 6개
                 , "NewsItemId", "OriginalUrl", "", "", "FileName", "FileUrl", "", ""};             // 8개
 
-        // 정책뉴스 원본의 key 리스트
+        // 보도자료 원본의 key 리스트
         List<String> pitches = new ArrayList<>(Arrays.asList(originItem));
-        // 정책뉴스 원본의 value 리스트
+        // 보도자료 원본의 value 리스트
         List<JSONObject> values = new ArrayList<>();
-        // 정책뉴스 매핑 후 value 리스트 ( Title ~ right 칼럼들의 값 )
+        // 보도자료 매핑 후 value 리스트 ( Title ~ right 칼럼들의 값 )
         String[] mappingValue = new String[12];
 
         try {
-            // 정책뉴스 url객체 생성
-            URL url = new URL("http://apis.data.go.kr/1371000/photoNewsService/photoNewsList"
-                    + "?serviceKey=OyfKMEU9NFp%2FBjVq6X4XzOKgG0iCkwCWtmQNFtDKPlfCOoqhQBo6DhgyLTsJxe5JNjyRns4f2IZ0DmneSFw0Xw%3D%3D&startDate=20211113&endDate=20211115");
-
+            // 보도자료 url객체 생성
+            URL url = new URL("http://apis.data.go.kr/1371000/pressReleaseService/pressReleaseList?serviceKey=OyfKMEU9NFp%2FBjVq6X4XzOKgG0iCkwCWtmQNFtDKPlfCOoqhQBo6DhgyLTsJxe5JNjyRns4f2IZ0DmneSFw0Xw%3D%3D&startDate=20211201&endDate=20211203");
             // Http연결을 위한 객체 생성
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -73,6 +71,7 @@ class JumpApplicationTests {
             jArray = (JSONArray) jsonObject3.get("NewsItem");       //  key값이 NewsItem인 객체들을 JSON 배열로 만듬
 
             int length = jArray.length();
+            int apiLength = this.metaApiRepository.findAll().size();
             for (int i = 0; i < length; i++) {  // key값이 NewsItem인 객체들의 갯수만큼 반복
 
                 JSONObject item = (JSONObject) jArray.get(i);    // JsonArray의 i+1번째 객체를 얻어옴.
@@ -103,8 +102,8 @@ class JumpApplicationTests {
 
                     // 날짜 변환 로직
                     SimpleDateFormat dfFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");    // 파싱 전 형식
-                    SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd"); // 파싱 후 형식
-                    String strDate = item.get("ModifyDate").toString(); // jsonObject의 get메소드로 ModifyDate를 String으로 변환
+                    SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");          // 파싱 후 형식
+                    String strDate = item.get("ModifyDate").toString();   // jsonObject의 get메소드로 ModifyDate를 String으로 변환
                     String strDate2 = item.get("ApproveDate").toString(); // jsonObject의 get메소드로 ApproveDate을 String으로 변환
                     String dateTemp = "";
                     String dateTemp2 = "";
@@ -142,7 +141,7 @@ class JumpApplicationTests {
                 } catch (JSONException e) {       // 수집 실패한 항목들에 대한 처리
 
                 }
-                MetaApi meta = new MetaApi(i + (long) 1, "", "",    // 생성자를 통한 객체 초기화
+                MetaApi meta = new MetaApi(apiLength + (long) i+1, "", "보도자료",    // 생성자를 통한 객체 초기화
                         (mappingValue[0]),
                         (mappingValue[1]),
                         (mappingValue[2]),
@@ -160,6 +159,7 @@ class JumpApplicationTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

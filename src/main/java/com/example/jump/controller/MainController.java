@@ -32,10 +32,11 @@ public class MainController {   // api출력 및 저장하는 핵심 로직
             // 출력 버튼을 누른 경우: 기존의 요청을 유지
     }
 
-    @GetMapping("/jump/save")   // csv파일로 저장
-    public ResponseEntity<byte[]> saveCsv(){
 
-        return metaService.saveCsv();
+    @GetMapping("/jump/save")   // csv파일로 저장
+    public ResponseEntity<byte[]> saveCsv(@RequestParam(value="type")String type){
+
+        return metaService.saveCsv(type);
     }
 
     @GetMapping("/jump/search") // 검색

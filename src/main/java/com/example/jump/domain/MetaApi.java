@@ -21,7 +21,7 @@ import javax.persistence.*;
 public class MetaApi {  // 메타 데이터 테이블
 
     @Id
-    private Long metaId;
+    private long metaId;
     @Column(columnDefinition = "TEXT")  // 글자 수를 제한할 수 없는 경우에 사용함
     private String metaClassifications; // 분야
     @Column(columnDefinition = "TEXT", nullable = false) // null이면 안 됨.
